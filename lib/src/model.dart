@@ -177,9 +177,9 @@ class _DownloadStationTaskActionResponse {
   _DownloadStationTaskActionResponse(this.id, this.error);
 
   factory _DownloadStationTaskActionResponse.fromJson(Map<String, dynamic> json) =>
-      _$_DownloadStationTaskActionResponseFromJson(json);
+      _$DownloadStationTaskActionResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$_DownloadStationTaskActionResponseToJson(this);
+  Map<String, dynamic> toJson() => _$DownloadStationTaskActionResponseToJson(this);
 }
 
 class _DownloadStationMultiTaskActionResponse {
@@ -511,4 +511,49 @@ class Feed {
   factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
 
   Map<String, dynamic> toJson() => _$FeedToJson(this);
+}
+
+@JsonSerializable()
+class FileStationSharedFolderList {
+  int total = 0;
+  int offset = 0;
+  List<Directory> shares = [];
+
+  FileStationSharedFolderList(this.total, this.offset, this.shares);
+
+  factory FileStationSharedFolderList.fromJson(Map<String, dynamic> json) => _$FileStationSharedFolderListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FileStationSharedFolderListToJson(this);
+}
+
+@JsonSerializable()
+class FileStationFolderFileList {
+  int total = 0;
+  int offset = 0;
+  List<Directory> files = [];
+
+  FileStationFolderFileList(this.total, this.offset, this.files);
+
+  factory FileStationFolderFileList.fromJson(Map<String, dynamic> json) => _$FileStationFolderFileListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$FileStationFolderFileListToJson(this);
+}
+
+@JsonSerializable()
+class Directory {
+  @JsonKey(name: 'hybridshare_cache_status')
+  int? hybridshareCacheStatus;
+  @JsonKey(name: 'hybridshare_pin_status')
+  int? hybridsharePinStatus;
+  @JsonKey(name: 'isdir')
+  bool? isDir;
+  String? name;
+  String? path;
+
+  Directory(this.hybridshareCacheStatus, this.hybridsharePinStatus, this.isDir,
+      this.name, this.path);
+
+  factory Directory.fromJson(Map<String, dynamic> json) => _$DirectoryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DirectoryToJson(this);
 }

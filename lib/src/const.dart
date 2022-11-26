@@ -6,6 +6,8 @@ class Syno {
   static _Api get API => _Api(name);
 
   static _Ds get DownloadStation => _Ds(name);
+
+  static _Fs get FileStation => _Fs(name);
 }
 
 class _Api {
@@ -47,4 +49,13 @@ class _Rss {
   String get Site => [_base, name, 'Site'].join('.');
 
   String get Feed => [_base, name, 'Feed'].join('.');
+}
+
+class _Fs {
+  final name = 'FileStation';
+  final String _base;
+
+  _Fs(this._base);
+
+  String get List => [_base, name, 'List'].join('.');
 }

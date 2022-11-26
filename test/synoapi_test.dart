@@ -14,13 +14,28 @@ void main() {
   final l = Logger('unittest');
 
   // test setup
-  var authOk;
+  var dsAuthOk;
+  var fsAuthOk;
   var cntx = api.APIContext(SYNO_HOST, port: SYNO_PORT);
   var queryApi = api.QueryAPI(cntx);
   var dsApi = api.DownloadStationAPI(cntx);
+  var fsApi = api.FileStationAPI(cntx);
   setUp(() async {
-    authOk = await cntx.authApp(
+    dsAuthOk = await cntx.authApp(
         api.Syno.DownloadStation.name,
+        SYNO_USER,
+        SYNO_USER_PASS,
+        otpCallback: () async {
+          String? otpCode;
+          while (otpCode == null || otpCode.trim().isEmpty) {
+            print('OTP Code? >');
+            otpCode = stdin.readLineSync();
+          }
+          return otpCode;
+        },
+    );
+    fsAuthOk = await cntx.authApp(
+        api.Syno.FileStation.name,
         SYNO_USER,
         SYNO_USER_PASS,
         otpCallback: () async {
@@ -34,8 +49,12 @@ void main() {
     );
   });
 
-  test('Auth OK?', () {
-    expect(authOk, equals(true));
+  test('Download Station Auth OK?', () {
+    expect(dsAuthOk, equals(true));
+  });
+
+  test('File Station Auth OK?', () {
+    expect(fsAuthOk, equals(true));
   });
 
   group('Test Query API', () {
@@ -75,6 +94,22 @@ void main() {
     test('Test List RSS Feeds', () async {
       final resp = await dsApi.rss.feed.list('0');
       expect(resp, isNotNull);
+    });
+  });
+
+  group('Test File Station API', () {
+    test('Test All Shared Folder List', () async {
+      final resp = await fsApi.list.listSharedFolder();
+      expect(resp.success, true);
+      expect(resp.data!.shares, isNotEmpty);
+    });
+    test('Test Folder File List', () async {
+      final resp = await fsApi.list.listFolderFile("/home");
+      expect(resp.success, true);
+    });
+    test('Test Folder File List with name except path', () async {
+      final resp = await fsApi.list.listFolderFile("home");
+      expect(resp.success, false);
     });
   });
 }
