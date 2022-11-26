@@ -9,13 +9,11 @@ class AuthAPIRaw {
 
   AuthAPIRaw(this._cntx);
 
-  Future<Response<String>> login(String account, String passwd, String session,
-      {int version = 3, String format = 'sid', String? otpCode}) async {
+  Future<Response<String>> login(String account, String passwd,
+      {int version = 3, String? otpCode}) async {
     final param = {
       'account': account,
       'passwd': passwd,
-      'session': session,
-      'format': format,
       'otp_code': otpCode,
       'version': version.toString(),
       'api': Syno.API.Auth,
@@ -33,15 +31,9 @@ class AuthAPIRaw {
       'version': '1',
       'method': 'logout',
       'session': session,
-      '_sid': _cntx.appSid[session]
     };
-
-    if (!_cntx.appSid.containsKey(session)) {
-      return;
-    }
 
     var uri = _cntx.buildUri(endpoint, param);
     await _cntx.c.getUri(uri);
-    _cntx.appSid.remove(session);
   }
 }

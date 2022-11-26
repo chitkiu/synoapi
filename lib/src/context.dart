@@ -3,7 +3,9 @@ import 'dart:math';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:logging/logging.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 
 import 'api/auth.dart';
 import 'api/query.dart';
@@ -40,7 +42,6 @@ class APIContext {
   late final String _authority;
   late final String _endpoint;
   late final Dio _client;
-  final Map<String, String> _appSid;
   Map<String, APIInfoQuery> _apiInfo = {};
 
   APIContext(String host,
@@ -48,14 +49,14 @@ class APIContext {
       : _proto = proto,
         _authority = '$host:$port',
         _endpoint = endpoint,
-        _client = Dio()..interceptors.add(LoggingInterceptor()),
-        _appSid = sid ?? {} {
+        _client = Dio()..interceptors.add(LoggingInterceptor())..interceptors.add(CookieManager(CookieJar()))
+  {
     if (proxy != null) _setupProxy(proxy);
   }
 
   APIContext.uri(String uri, {String? proxy, Map<String, String>? sid})
-      : _client = Dio()..interceptors.add(LoggingInterceptor()),
-        _appSid = sid ?? {} {
+      : _client = Dio()..interceptors.add(LoggingInterceptor())..interceptors.add(CookieManager(CookieJar()))
+  {
     var parsedUri = Uri.parse(uri);
     _proto = parsedUri.scheme;
     _authority = parsedUri.authority;
@@ -70,9 +71,11 @@ class APIContext {
   }
 
   Uri buildUri(String path, Map<String, dynamic>? queryParams) {
-    queryParams ??= {};
-    queryParams.removeWhere((key, value) => value == null);
-    queryParams = queryParams.map((key, value) => MapEntry(key, value.toString()));
+    if (queryParams != null) {
+      queryParams.removeWhere((key, value) => value == null);
+      queryParams =
+          queryParams.map((key, value) => MapEntry(key, value.toString()));
+    }
     if (_proto == 'http') {
       return Uri.http(_authority, _endpoint + path, queryParams);
     } else if (_proto == 'https') {
@@ -82,13 +85,12 @@ class APIContext {
     }
   }
 
-  Future<bool> authApp(String app, String account, String passwd,
+  Future<bool> authApp(String account, String passwd,
       {String? otpCode, AsyncStringCallback? otpCallback}) async {
-    var resp = await AuthAPIRaw(this).login(account, passwd, app, otpCode: otpCode, format: 'sid', version: 3);
+    var resp = await AuthAPIRaw(this).login(account, passwd, otpCode: otpCode, version: 3);
     var respObj = jsonDecode(resp.data!);
     if (respObj['success']) {
-      _appSid[app] = respObj['data']['sid'];
-      l.fine('authApp(); App $app authentication success, sid = ${_appSid[app]}');
+      l.fine('authApp(); Authentication success, sid = ${respObj['data']['sid']}');
 
       try {
         var apiInfo = await QueryAPI(this).info.apiInfo();
@@ -106,7 +108,7 @@ class APIContext {
       l.fine('authApp(); Authentication fail, code = ${respObj['error']['code']}');
       if (otpCallback != null && respObj['error']['code'] == 403) {
         // otp code required
-        return authApp(app, account, passwd, otpCode: await otpCallback());
+        return authApp(account, passwd, otpCode: await otpCallback());
       }
     }
     return false;
@@ -118,19 +120,9 @@ class APIContext {
 
   String get proto => _proto;
 
-  Map<String, String> get appSid => _appSid;
-
   Dio get c => _client;
 
   Map<String, APIInfoQuery> get apiInfo => _apiInfo;
-
-  bool hasSid(String appName) {
-    return (_appSid[appName] ?? '').isNotEmpty;
-  }
-
-  String? getSid(String appName) {
-    return _appSid[appName];
-  }
 
   int maxApiVersion(String apiName, {int defaultVersion = 1}) => _apiInfo[apiName]?.maxVersion ?? defaultVersion;
 

@@ -37,7 +37,6 @@ class List {
       'version': version ??
           _parentApi._cntx.maxApiVersion(Syno.FileStation.List),
       'method': 'list_share',
-      '_sid': _parentApi._cntx.appSid[_parentApi.session]
     };
 
     final uri = _parentApi._cntx.buildUri(
@@ -65,7 +64,6 @@ class List {
           _parentApi._cntx.maxApiVersion(Syno.FileStation.List),
       'method': 'list',
       'folder_path': path,
-      '_sid': _parentApi._cntx.appSid[_parentApi.session],
     };
 
     final uri = _parentApi._cntx.buildUri(

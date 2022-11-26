@@ -1,6 +1,6 @@
 name: synoapi
 description: synoapi
-version: 0.1.5
+version: 0.1.6
 # homepage: https://www.example.com
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   logging: ^1.0.2
   json_annotation: ^4.4.0
   json_serializable: ^6.1.4
+  dio_cookie_manager: ^2.0.0
 
 dev_dependencies:
   test: ^1.20.0

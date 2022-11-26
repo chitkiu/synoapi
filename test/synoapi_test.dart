@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:chunked_stream/chunked_stream.dart';
 import 'package:logging/logging.dart';
 import 'package:synoapi/synoapi.dart' as api;
 import 'package:test/test.dart';
@@ -14,15 +16,13 @@ void main() {
   final l = Logger('unittest');
 
   // test setup
-  var dsAuthOk;
-  var fsAuthOk;
+  var authOk;
   var cntx = api.APIContext(SYNO_HOST, port: SYNO_PORT);
   var queryApi = api.QueryAPI(cntx);
   var dsApi = api.DownloadStationAPI(cntx);
   var fsApi = api.FileStationAPI(cntx);
   setUp(() async {
-    dsAuthOk = await cntx.authApp(
-        api.Syno.DownloadStation.name,
+    authOk = await cntx.authApp(
         SYNO_USER,
         SYNO_USER_PASS,
         otpCallback: () async {
@@ -34,27 +34,10 @@ void main() {
           return otpCode;
         },
     );
-    fsAuthOk = await cntx.authApp(
-        api.Syno.FileStation.name,
-        SYNO_USER,
-        SYNO_USER_PASS,
-        otpCallback: () async {
-          String? otpCode;
-          while (otpCode == null || otpCode.trim().isEmpty) {
-            print('OTP Code? >');
-            otpCode = stdin.readLineSync();
-          }
-          return otpCode;
-        }
-    );
   });
 
-  test('Download Station Auth OK?', () {
-    expect(dsAuthOk, equals(true));
-  });
-
-  test('File Station Auth OK?', () {
-    expect(fsAuthOk, equals(true));
+  test('Auth OK?', () {
+    expect(authOk, equals(true));
   });
 
   group('Test Query API', () {
