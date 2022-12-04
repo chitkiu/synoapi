@@ -19,6 +19,7 @@ void main() {
   var queryApi = api.QueryAPI(cntx);
   var dsApi = api.DownloadStationAPI(cntx);
   var fsApi = api.FileStationAPI(cntx);
+  var nsApi = api.NoteStationAPI(cntx);
   setUp(() async {
     authOk = await cntx.authApp(
         SYNO_USER,
@@ -91,6 +92,50 @@ void main() {
     test('Test Folder File List with name except path', () async {
       final resp = await fsApi.list.listFolderFile("home");
       expect(resp.success, false);
+    });
+  });
+
+
+  group('Test Note Station API', () {
+    test('Test Get Note Station Settings', () async {
+      final resp = await nsApi.setting.getSettingsInfo();
+      expect(resp.success, true);
+    });
+    test('Test Get Note Station Info', () async {
+      final resp = await nsApi.info.getInfo();
+      expect(resp.success, true);
+    });
+    test('Test Get Note Station Note list', () async {
+      final resp = await nsApi.note.getNoteList();
+      expect(resp.success, true);
+    });
+    test('Test Get Note Station Notebook list', () async {
+      final resp = await nsApi.notebook.getNotebookList();
+      expect(resp.success, true);
+    });
+    test('Test Get Note Station Shortcut list', () async {
+      final resp = await nsApi.shortcut.getShortcutListRaw();
+      print(resp.data);
+      expect(resp.data, isNotEmpty);
+      // expect(resp.data!.shares, isNotEmpty);
+    });
+    test('Test Get Note Station Smart list', () async {
+      final resp = await nsApi.smart.getSmartListRaw();
+      print(resp.data);
+      expect(resp.data, isNotEmpty);
+      // expect(resp.data!.shares, isNotEmpty);
+    });
+    test('Test Get Note Station Tag list', () async {
+      final resp = await nsApi.tag.getTagListRaw();
+      print(resp.data);
+      expect(resp.data, isNotEmpty);
+      // expect(resp.data!.shares, isNotEmpty);
+    });
+    test('Test Get Note Station Todo list', () async {
+      final resp = await nsApi.todo.getTodoListRaw();
+      print(resp.data);
+      expect(resp.data, isNotEmpty);
+      // expect(resp.data!.shares, isNotEmpty);
     });
   });
 }

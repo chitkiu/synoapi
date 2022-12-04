@@ -10,6 +10,8 @@ class Syno {
   static _Ds2 get DownloadStation2 => _Ds2(name);
 
   static _Fs get FileStation => _Fs(name);
+
+  static _Ns get NoteStation => _Ns(name);
 }
 
 class _Api {
@@ -49,6 +51,29 @@ class _Ds2 {
   _Ds2(this._base);
 
   String get Task => [_base, name, 'Task'].join('.');
+}
+
+class _Ns {
+  final name = 'NoteStation';
+  final String _base;
+
+  _Ns(this._base);
+
+  String get Setting => [_base, name, 'Setting'].join('.');
+
+  String get Info => [_base, name, 'Info'].join('.');
+
+  String get Notebook => [_base, name, 'Notebook'].join('.');
+
+  String get Tag => [_base, name, 'Tag'].join('.');
+
+  String get Shortcut => [_base, name, 'Shortcut'].join('.');
+
+  String get Todo => [_base, name, 'Todo'].join('.');
+
+  String get Smart => [_base, name, 'Smart'].join('.');
+
+  String get Note => [_base, name, 'Note'].join('.');
 }
 
 class _Rss {
