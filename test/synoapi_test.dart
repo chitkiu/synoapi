@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:chunked_stream/chunked_stream.dart';
 import 'package:logging/logging.dart';
 import 'package:synoapi/synoapi.dart' as api;
 import 'package:test/test.dart';

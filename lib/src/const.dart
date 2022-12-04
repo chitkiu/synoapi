@@ -7,6 +7,8 @@ class Syno {
 
   static _Ds get DownloadStation => _Ds(name);
 
+  static _Ds2 get DownloadStation2 => _Ds2(name);
+
   static _Fs get FileStation => _Fs(name);
 }
 
@@ -38,6 +40,15 @@ class _Ds {
   String get BTSearch => [_base, name, 'BTSearch'].join('.');
 
   _Rss get RSS => _Rss([_base, name].join('.'));
+}
+
+class _Ds2 {
+  final name = 'DownloadStation2';
+  final String _base;
+
+  _Ds2(this._base);
+
+  String get Task => [_base, name, 'Task'].join('.');
 }
 
 class _Rss {
