@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:logging/logging.dart';
-import 'package:cookie_jar/cookie_jar.dart';
 
 import 'api/auth.dart';
 import 'api/query.dart';
@@ -42,21 +42,30 @@ class APIContext {
   late final String _authority;
   late final String _endpoint;
   late final Dio _client;
+  late final CookieJar _cookie;
   Map<String, APIInfoQuery> _apiInfo = {};
 
-  APIContext(String host,
+  APIContext(String host, CookieJar cookieJar,
       {String proto = 'https', int port = 443, String endpoint = '', String? proxy, Map<String, String>? sid})
       : _proto = proto,
         _authority = '$host:$port',
-        _endpoint = endpoint,
-        _client = Dio()..interceptors.add(LoggingInterceptor())..interceptors.add(CookieManager(CookieJar()))
+        _endpoint = endpoint
   {
+    _client = _buildDioClient(cookieJar);
     if (proxy != null) _setupProxy(proxy);
   }
 
-  APIContext.uri(String uri, {String? proxy, Map<String, String>? sid})
-      : _client = Dio()..interceptors.add(LoggingInterceptor())..interceptors.add(CookieManager(CookieJar()))
-  {
+  APIContext.uri(String uri, CookieJar cookieJar, {String? proxy}) {
+    _client = _buildDioClient(cookieJar);
+    _setupDataFromUri(uri, proxy: proxy);
+  }
+
+  APIContext.cookie(String uri, CookieJar cookieJar, {String? proxy}) {
+    _client = _buildDioClient(cookieJar);
+    _setupDataFromUri(uri, proxy: proxy);
+  }
+
+  void _setupDataFromUri(String uri, {String? proxy}) {
     var parsedUri = Uri.parse(uri);
     _proto = parsedUri.scheme;
     _authority = parsedUri.authority;
@@ -83,6 +92,22 @@ class APIContext {
     } else {
       throw Exception('Unsupported proto \'$proto\'');
     }
+  }
+
+  Future<bool> authCookieApp() async {
+    try {
+      var apiInfo = await QueryAPI(this).info.apiInfo();
+      if (!apiInfo.success) {
+        throw Exception('Failed to query api info. error: ' +
+            (apiInfo.error?.entries.map((e) => '${e.key}=${e.value}').join(',') ?? ''));
+      }
+      _apiInfo = apiInfo.data ?? {};
+
+      return true;
+    } catch (e) {
+      l.warning('authApp(); Failed to retrieve API info.');
+    }
+    return false;
   }
 
   Future<bool> authApp(String account, String passwd,
@@ -114,6 +139,17 @@ class APIContext {
     return false;
   }
 
+  Future<bool> logout() async {
+    var resp = await AuthAPIRaw(this).logout('');
+    var respObj = jsonDecode(resp.data!);
+    if (respObj['success']) {
+      await _cookie.deleteAll();
+      return true;
+    }
+
+    return false;
+  }
+
   String get endpoint => _endpoint;
 
   String get authority => _authority;
@@ -122,7 +158,15 @@ class APIContext {
 
   Dio get c => _client;
 
+  CookieJar get cookie => _cookie;
+
   Map<String, APIInfoQuery> get apiInfo => _apiInfo;
+
+  Dio _buildDioClient(CookieJar cookieJar) {
+    _cookie = cookieJar;
+    return Dio()..interceptors.add(LoggingInterceptor())
+      ..interceptors.add(CookieManager(_cookie));
+  }
 
   int maxApiVersion(String apiName, {int defaultVersion = 1}) => _apiInfo[apiName]?.maxVersion ?? defaultVersion;
 

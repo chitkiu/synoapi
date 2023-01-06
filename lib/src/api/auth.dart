@@ -25,7 +25,7 @@ class AuthAPIRaw {
     return await _cntx.c.getUri(uri);
   }
 
-  void logout(String session) async {
+  Future<Response<String>> logout(String session) async {
     final param = {
       'api': Syno.API.Auth,
       'version': '1',
@@ -34,6 +34,6 @@ class AuthAPIRaw {
     };
 
     var uri = _cntx.buildUri(endpoint, param);
-    await _cntx.c.getUri(uri);
+    return await _cntx.c.getUri(uri);
   }
 }
