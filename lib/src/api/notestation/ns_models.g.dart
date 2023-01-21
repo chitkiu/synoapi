@@ -11,9 +11,9 @@ NoteStationSettings _$NoteStationSettingsFromJson(Map<String, dynamic> json) =>
       json['copy_delete_orig'] as bool?,
       json['font_size'] as String?,
       json['inline_thumb'] as bool?,
-      json['pointer_color'] as String?,
+      $enumDecodeNullable(_$NoteStationColorEnumMap, json['pointer_color']),
       json['search_attachment'] as bool?,
-      json['slide_theme'] as String?,
+      $enumDecodeNullable(_$NoteStationColorEnumMap, json['slide_theme']),
       json['spell_check'] as bool?,
       json['todo_due_date_day'] as String?,
       json['todo_export_info'] as String?,
@@ -32,9 +32,9 @@ Map<String, dynamic> _$NoteStationSettingsToJson(
       'copy_delete_orig': instance.copyDeleteOriginal,
       'font_size': instance.fontSize,
       'inline_thumb': instance.inlineThumbnail,
-      'pointer_color': instance.pointerColor,
+      'pointer_color': _$NoteStationColorEnumMap[instance.pointerColor],
       'search_attachment': instance.searchAttachment,
-      'slide_theme': instance.slideTheme,
+      'slide_theme': _$NoteStationColorEnumMap[instance.slideTheme],
       'spell_check': instance.spellCheck,
       'todo_due_date_day': instance.todoDueDateDay,
       'todo_export_info': instance.todoExportInfo,
@@ -46,6 +46,11 @@ Map<String, dynamic> _$NoteStationSettingsToJson(
       'todo_reminder_value': instance.todoReminderValue,
       'todo_show_badge': instance.todoShowBadge,
     };
+
+const _$NoteStationColorEnumMap = {
+  NoteStationColor.blue: 'blue',
+  NoteStationColor.white: 'white',
+};
 
 NoteStationInfo _$NoteStationInfoFromJson(Map<String, dynamic> json) =>
     NoteStationInfo(
@@ -93,7 +98,7 @@ Map<String, dynamic> _$NoteStationInfoVersionToJson(
 NoteStationNoteList _$NoteStationNoteListFromJson(Map<String, dynamic> json) =>
     NoteStationNoteList(
       (json['notes'] as List<dynamic>?)
-          ?.map((e) => NoteStationNote.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => NoteStationNoteInfo.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['offset'] as int?,
       json['total'] as int?,
@@ -107,14 +112,14 @@ Map<String, dynamic> _$NoteStationNoteListToJson(
       'total': instance.total,
     };
 
-NoteStationNote _$NoteStationNoteFromJson(Map<String, dynamic> json) =>
-    NoteStationNote(
+NoteStationNoteInfo _$NoteStationNoteInfoFromJson(Map<String, dynamic> json) =>
+    NoteStationNoteInfo(
       json['acl'] == null
           ? null
           : NoteStationAcl.fromJson(json['acl'] as Map<String, dynamic>),
       json['archive'] as bool?,
       json['brief'] as String?,
-      json['category'] as String?,
+      $enumDecodeNullable(_$NoteStationCategoryEnumMap, json['category']),
       json['ctime'] as int?,
       json['encrypt'] as bool?,
       json['mtime'] as int?,
@@ -123,30 +128,125 @@ NoteStationNote _$NoteStationNoteFromJson(Map<String, dynamic> json) =>
           ? null
           : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
       json['parent_id'] as String?,
-      json['perm'] as String?,
+      $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
       json['recycle'] as bool?,
       json['thumb'] as String?,
       json['title'] as String?,
       json['ver'] as String?,
     );
 
-Map<String, dynamic> _$NoteStationNoteToJson(NoteStationNote instance) =>
+Map<String, dynamic> _$NoteStationNoteInfoToJson(
+        NoteStationNoteInfo instance) =>
     <String, dynamic>{
       'acl': instance.acl,
       'archive': instance.archive,
       'brief': instance.brief,
-      'category': instance.category,
+      'category': _$NoteStationCategoryEnumMap[instance.category],
       'ctime': instance.creationTime,
       'encrypt': instance.encrypt,
       'mtime': instance.modifyTime,
       'object_id': instance.id,
       'owner': instance.owner,
       'parent_id': instance.parentId,
-      'perm': instance.perm,
+      'perm': _$NoteStationPermissionTypeEnumMap[instance.perm],
       'recycle': instance.recycle,
       'thumb': instance.thumb,
       'title': instance.title,
       'ver': instance.version,
+    };
+
+const _$NoteStationCategoryEnumMap = {
+  NoteStationCategory.notebook: 'notebook',
+  NoteStationCategory.note: 'note',
+};
+
+const _$NoteStationPermissionTypeEnumMap = {
+  NoteStationPermissionType.owner: 'owner',
+};
+
+NoteStationNoteDataInfo _$NoteStationNoteDataInfoFromJson(
+        Map<String, dynamic> json) =>
+    NoteStationNoteDataInfo(
+      json['acl'] == null
+          ? null
+          : NoteStationAcl.fromJson(json['acl'] as Map<String, dynamic>),
+      json['archive'] as bool?,
+      json['attachment'] as String?,
+      json['brief'] as String?,
+      json['category'] as String?,
+      json['commit_msg'] == null
+          ? null
+          : NoteStationNoteCommitMessage.fromJson(
+              json['commit_msg'] as Map<String, dynamic>),
+      json['content'] as String?,
+      json['ctime'] as int?,
+      json['encrypt'] as bool?,
+      json['individual_joined'] as bool?,
+      json['individual_shared'] as bool?,
+      (json['latitude'] as num?)?.toDouble(),
+      json['link_id'] as String?,
+      json['location'] as String?,
+      (json['longitude'] as num?)?.toDouble(),
+      json['mtime'] as int?,
+      json['object_id'] as String?,
+      json['old_parent_id'] as String?,
+      json['owner'] == null
+          ? null
+          : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
+      json['parent_id'] as String?,
+      $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      json['recycle'] as bool?,
+      json['source_url'] as String?,
+      (json['tag'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      json['thumb'] as String?,
+      json['title'] as String?,
+      json['ver'] as String?,
+    );
+
+Map<String, dynamic> _$NoteStationNoteDataInfoToJson(
+        NoteStationNoteDataInfo instance) =>
+    <String, dynamic>{
+      'acl': instance.acl,
+      'archive': instance.archive,
+      'attachment': instance.attachment,
+      'brief': instance.brief,
+      'category': instance.category,
+      'commit_msg': instance.commitMessage,
+      'content': instance.content,
+      'ctime': instance.creationTime,
+      'encrypt': instance.encrypt,
+      'individual_joined': instance.individualJoined,
+      'individual_shared': instance.individualShared,
+      'latitude': instance.latitude,
+      'link_id': instance.linkId,
+      'location': instance.location,
+      'longitude': instance.longitude,
+      'mtime': instance.modifyTime,
+      'object_id': instance.id,
+      'old_parent_id': instance.oldParentId,
+      'owner': instance.owner,
+      'parent_id': instance.parentId,
+      'perm': _$NoteStationPermissionTypeEnumMap[instance.perm],
+      'recycle': instance.recycle,
+      'source_url': instance.sourceUrl,
+      'tag': instance.tag,
+      'thumb': instance.thumb,
+      'title': instance.title,
+      'ver': instance.version,
+    };
+
+NoteStationNoteCommitMessage _$NoteStationNoteCommitMessageFromJson(
+        Map<String, dynamic> json) =>
+    NoteStationNoteCommitMessage(
+      json['device'] as String?,
+      json['listable'] as bool?,
+    );
+
+Map<String, dynamic> _$NoteStationNoteCommitMessageToJson(
+        NoteStationNoteCommitMessage instance) =>
+    <String, dynamic>{
+      'device': instance.device,
+      'listable': instance.listable,
     };
 
 NoteStationNotebookList _$NoteStationNotebookListFromJson(
@@ -183,7 +283,7 @@ NoteStationNotebook _$NoteStationNotebookFromJson(Map<String, dynamic> json) =>
       json['owner'] == null
           ? null
           : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
-      json['perm'] as String?,
+      $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
       json['preset'] as bool?,
       json['stack'] as String?,
       json['title'] as String?,
@@ -203,7 +303,7 @@ Map<String, dynamic> _$NoteStationNotebookToJson(
       'mtime': instance.modifyTime,
       'object_id': instance.id,
       'owner': instance.owner,
-      'perm': instance.perm,
+      'perm': _$NoteStationPermissionTypeEnumMap[instance.perm],
       'preset': instance.preset,
       'stack': instance.stack,
       'title': instance.title,

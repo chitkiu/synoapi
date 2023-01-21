@@ -2,6 +2,20 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'ns_models.g.dart';
 
+enum NoteStationCategory {
+  notebook,
+  note
+}
+
+enum NoteStationColor {
+  blue,
+  white
+}
+
+enum NoteStationPermissionType {
+  owner
+}
+
 @JsonSerializable()
 class NoteStationSettings {
 
@@ -15,13 +29,13 @@ class NoteStationSettings {
   bool? inlineThumbnail;
 
   @JsonKey(name: "pointer_color")
-  String? pointerColor; //TODO Move to enum [blue, white, ]
+  NoteStationColor? pointerColor;
 
   @JsonKey(name: "search_attachment")
   bool? searchAttachment;
 
   @JsonKey(name: "slide_theme")
-  String? slideTheme; //TODO Move to enum [blue, white, ]
+  NoteStationColor? slideTheme;
 
   @JsonKey(name: "spell_check")
   bool? spellCheck;
@@ -137,7 +151,7 @@ class NoteStationInfoVersion {
 class NoteStationNoteList {
 
   @JsonKey(name: "notes")
-  List<NoteStationNote>? notes;
+  List<NoteStationNoteInfo>? notes;
 
   @JsonKey(name: "offset")
   int? offset;
@@ -154,7 +168,7 @@ class NoteStationNoteList {
 }
 
 @JsonSerializable()
-class NoteStationNote {
+class NoteStationNoteInfo {
 
   @JsonKey(name: "acl")
   NoteStationAcl? acl;
@@ -166,7 +180,7 @@ class NoteStationNote {
   String? brief;
 
   @JsonKey(name: "category")
-  String? category; //TODO: note
+  NoteStationCategory? category;
 
   @JsonKey(name: "ctime")
   int? creationTime;
@@ -187,7 +201,7 @@ class NoteStationNote {
   String? parentId;
 
   @JsonKey(name: "perm")
-  String? perm; //TODO owner
+  NoteStationPermissionType? perm;
 
   @JsonKey(name: "recycle")
   bool? recycle;
@@ -201,7 +215,7 @@ class NoteStationNote {
   @JsonKey(name: "ver")
   String? version;
 
-  NoteStationNote(
+  NoteStationNoteInfo(
       this.acl,
       this.archive,
       this.brief,
@@ -218,9 +232,145 @@ class NoteStationNote {
       this.title,
       this.version);
 
-  factory NoteStationNote.fromJson(Map<String, dynamic> json) => _$NoteStationNoteFromJson(json);
+  factory NoteStationNoteInfo.fromJson(Map<String, dynamic> json) => _$NoteStationNoteInfoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$NoteStationNoteToJson(this);
+  Map<String, dynamic> toJson() => _$NoteStationNoteInfoToJson(this);
+}
+
+@JsonSerializable()
+class NoteStationNoteDataInfo {
+
+  @JsonKey(name: "acl")
+  NoteStationAcl? acl;
+
+  @JsonKey(name: "archive")
+  bool? archive;
+
+  @JsonKey(name: "attachment")
+  String? attachment; //TODO idk type
+
+  @JsonKey(name: "brief")
+  String? brief;
+
+  @JsonKey(name: "category")
+  String? category;
+
+  @JsonKey(name: "commit_msg")
+  NoteStationNoteCommitMessage? commitMessage;
+
+  @JsonKey(name: "content")
+  String? content;
+
+  @JsonKey(name: "ctime")
+  int? creationTime;
+
+  @JsonKey(name: "encrypt")
+  bool? encrypt;
+
+  @JsonKey(name: "individual_joined")
+  bool? individualJoined;
+
+  @JsonKey(name: "individual_shared")
+  bool? individualShared;
+
+  @JsonKey(name: "latitude")
+  double? latitude;
+
+  @JsonKey(name: "link_id")
+  String? linkId;
+
+  @JsonKey(name: "location")
+  String? location;
+
+  @JsonKey(name: "longitude")
+  double? longitude;
+
+  @JsonKey(name: "mtime")
+  int? modifyTime;
+
+  @JsonKey(name: "object_id")
+  String? id;
+
+  @JsonKey(name: "old_parent_id")
+  String? oldParentId;
+
+  @JsonKey(name: "owner")
+  NoteStationOwner? owner;
+
+  @JsonKey(name: "parent_id")
+  String? parentId;
+
+  @JsonKey(name: "perm")
+  NoteStationPermissionType? perm;
+
+  @JsonKey(name: "recycle")
+  bool? recycle;
+
+  @JsonKey(name: "source_url")
+  String? sourceUrl;
+
+  @JsonKey(name: "tag")
+  List<String>? tag; //TODO idk type
+
+  @JsonKey(name: "thumb")
+  String? thumb; //TODO idk type
+
+  @JsonKey(name: "title")
+  String? title;
+
+  @JsonKey(name: "ver")
+  String? version;
+
+
+  NoteStationNoteDataInfo(
+      this.acl,
+      this.archive,
+      this.attachment,
+      this.brief,
+      this.category,
+      this.commitMessage,
+      this.content,
+      this.creationTime,
+      this.encrypt,
+      this.individualJoined,
+      this.individualShared,
+      this.latitude,
+      this.linkId,
+      this.location,
+      this.longitude,
+      this.modifyTime,
+      this.id,
+      this.oldParentId,
+      this.owner,
+      this.parentId,
+      this.perm,
+      this.recycle,
+      this.sourceUrl,
+      this.tag,
+      this.thumb,
+      this.title,
+      this.version);
+
+  factory NoteStationNoteDataInfo.fromJson(Map<String, dynamic> json) => _$NoteStationNoteDataInfoFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NoteStationNoteDataInfoToJson(this);
+}
+
+@JsonSerializable()
+class NoteStationNoteCommitMessage {
+
+  @JsonKey(name: "device")
+  String? device;
+
+  @JsonKey(name: "listable")
+  bool? listable;
+
+  NoteStationNoteCommitMessage(this.device, this.listable);
+
+  factory NoteStationNoteCommitMessage.fromJson(Map<String, dynamic> json) => _$NoteStationNoteCommitMessageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$NoteStationNoteCommitMessageToJson(this);
+
 }
 
 @JsonSerializable()
@@ -253,7 +403,7 @@ class NoteStationNotebook {
   bool? archive;
 
   @JsonKey(name: "category")
-  String? category; //TODO: notebook
+  String? category;
 
   @JsonKey(name: "ctime")
   int? creationTime;
@@ -277,7 +427,7 @@ class NoteStationNotebook {
   NoteStationOwner? owner;
 
   @JsonKey(name: "perm")
-  String? perm; //TODO owner
+  NoteStationPermissionType? perm;
 
   @JsonKey(name: "preset")
   bool? preset;
