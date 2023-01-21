@@ -214,6 +214,60 @@ class Note {
     });
   }
 
+  /**
+   * noteId is object_id from note list
+   *
+   * TODO add model
+   * {
+      "data":{
+      "acl":{
+      "dsm_group":{
+      "101":{
+      "inherit":false,
+      "name":"administrators",
+      "perm":"rw"
+      }
+      },
+      "enabled":true
+      },
+      "archive":false,
+      "attachment":null,
+      "brief":"SOme text",
+      "category":"note",
+      "commit_msg":{
+      "device":"desktop", (can be iPhone)
+      "listable":true
+      },
+      "content":" HERE WILL BE CONTENT",
+      "ctime":1667212774,
+      "encrypt":false,
+      "individual_joined":false,
+      "individual_shared":true,
+      "latitude":0,
+      "link_id":"NKKuZ",
+      "location":"",
+      "longitude":0,
+      "mtime":1674307941,
+      "object_id":"1027_IGOD4AF2553HL11HRKBMFEKP48",
+      "old_parent_id":"",
+      "owner":{
+      "display_name":"demon",
+      "uid":1027
+      },
+      "parent_id":"1027_8VK2TIAHIH6S797BFOAIV0NGC8",
+      "perm":"owner",
+      "recycle":false,
+      "source_url":"",
+      "tag":[
+
+      ],
+      "thumb":null,
+      "title":"Ониме",
+      "ver":"096af2775f1d25da7900829bbdb341cad147ce60"
+      },
+      "success":true
+      }
+   */
   Future<Response<String>> getSpecificNoteInfoRaw(String noteId, {int? version}) {
     final param = {
       'api': api,

@@ -15,7 +15,7 @@ void main() {
 
   // test setup
   var authOk;
-  var cntx = api.APIContext(SYNO_HOST, port: SYNO_PORT);
+  var cntx = api.APIContext(SYNO_HOST, api.CookieJar(), port: SYNO_PORT);
   var queryApi = api.QueryAPI(cntx);
   var dsApi = api.DownloadStationAPI(cntx);
   var fsApi = api.FileStationAPI(cntx);
