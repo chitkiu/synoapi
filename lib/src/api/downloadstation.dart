@@ -62,7 +62,6 @@ class Info {
       'api': Syno.DownloadStation.Info,
       'version': version ?? _parentApi._cntx.maxApiVersion(Syno.DownloadStation.Info),
       'method': 'getinfo',
-      '_sid': _parentApi._cntx.appSid[_parentApi.session]
     };
 
     final uri = _parentApi._cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -81,7 +80,6 @@ class Info {
       'api': Syno.DownloadStation.Info,
       'version': version ?? _parentApi._cntx.maxApiVersion(Syno.DownloadStation.Info),
       'method': 'getconfig',
-      '_sid': _parentApi._cntx.appSid[_parentApi.session]
     };
 
     final uri = _parentApi._cntx.buildUri(_parentApi.session + endpoint, param);
@@ -100,7 +98,6 @@ class Info {
       'api': Syno.DownloadStation.Info,
       'version': version ?? _parentApi._cntx.maxApiVersion(Syno.DownloadStation.Info),
       'method': 'setserverconfig',
-      '_sid': _parentApi._cntx.appSid[_parentApi.session]
     };
     param.addAll(config);
     param.removeWhere((key, value) => value == null);
@@ -127,7 +124,6 @@ class Schedule {
       'api': Syno.DownloadStation.Schedule,
       'version': version ?? _parentApi._cntx.maxApiVersion(Syno.DownloadStation.Schedule),
       'method': 'getconfig',
-      '_sid': _parentApi._cntx.appSid[_parentApi.session]
     };
 
     final uri = _parentApi._cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -148,7 +144,6 @@ class Schedule {
       'api': Syno.DownloadStation.Schedule,
       'version': version ?? _parentApi._cntx.maxApiVersion(Syno.DownloadStation.Schedule),
       'method': 'setconfig',
-      '_sid': _parentApi._cntx.appSid[_parentApi.session]
     };
 
     final uri = _parentApi._cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -182,7 +177,6 @@ class Task {
       'api': Syno.DownloadStation.Task,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Task),
       'method': 'list',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -210,7 +204,6 @@ class Task {
       'api': Syno.DownloadStation.Task,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Task),
       'method': 'getinfo',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -231,64 +224,6 @@ class Task {
     });
   }
 
-  Future<Response<String>> createRaw(
-      {int? version,
-      List<String>? uris,
-      List<int>? torrentBytes,
-      String? username,
-      String? passwd,
-      String? unzipPasswd,
-      String? destination}) async {
-    final param = {
-      'uri': uris?.join(','),
-      'username': username,
-      'password': passwd,
-      'unzip_password': unzipPasswd,
-      'destination': destination,
-      'api': Syno.DownloadStation.Task,
-      'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Task),
-      'method': 'create',
-      '_sid': _cntx.appSid[_parentApi.session]
-    };
-    param.removeWhere((key, value) => value == null);
-
-    final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, null);
-
-    dynamic data = FormData.fromMap(param);
-
-    var options;
-    if (torrentBytes != null) {
-      data.files.add(MapEntry('file', MultipartFile.fromBytes(torrentBytes)));
-    } else {
-      // if not using file, send as x-www-form-urlencoded
-      data = param;
-      options = Options(contentType: Headers.formUrlEncodedContentType);
-    }
-
-    return _cntx.c.postUri(uri, data: data, options: options);
-  }
-
-  Future<model.APIResponse<void>> create(
-      {int? version,
-      List<String>? uris,
-      List<int>? torrentBytes,
-      String? username,
-      String? passwd,
-      String? unzipPasswd,
-      String? destination}) {
-    return createRaw(
-            version: version,
-            uris: uris,
-            torrentBytes: torrentBytes,
-            username: username,
-            passwd: passwd,
-            unzipPasswd: unzipPasswd,
-            destination: destination)
-        .then((resp) {
-      return model.APIResponse.fromJson(jsonDecode(resp.data!), (json) {});
-    });
-  }
-
   Future<Response<String>> deleteRaw(List<String> ids, bool forceComplete, {int? version}) {
     final param = {
       'id': ids.join(','),
@@ -296,7 +231,6 @@ class Task {
       'api': Syno.DownloadStation.Task,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Task),
       'method': 'delete',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -317,7 +251,6 @@ class Task {
       'api': Syno.DownloadStation.Task,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Task),
       'method': 'pause',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -337,7 +270,6 @@ class Task {
       'api': Syno.DownloadStation.Task,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Task),
       'method': 'resume',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -358,7 +290,6 @@ class Task {
       'api': Syno.DownloadStation.Task,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Task),
       'method': 'edit',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
     param.removeWhere((key, value) => value == null);
 
@@ -386,7 +317,6 @@ class Statistic {
       'api': Syno.DownloadStation.Statistic,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.Statistic),
       'method': 'getinfo',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -442,7 +372,6 @@ class RSSSite {
       'api': Syno.DownloadStation.RSS.Site,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.RSS.Site),
       'method': 'list',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -462,7 +391,6 @@ class RSSSite {
       'api': Syno.DownloadStation.RSS.Site,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.RSS.Site),
       'method': 'refresh',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
@@ -491,7 +419,6 @@ class RSSFeed {
       'api': Syno.DownloadStation.RSS.Feed,
       'version': version ?? _cntx.maxApiVersion(Syno.DownloadStation.RSS.Feed),
       'method': 'list',
-      '_sid': _cntx.appSid[_parentApi.session]
     };
 
     final uri = _cntx.buildUri(_parentApi.endpoint + endpoint, param);
