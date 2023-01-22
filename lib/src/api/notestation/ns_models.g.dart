@@ -162,6 +162,8 @@ const _$NoteStationCategoryEnumMap = {
 
 const _$NoteStationPermissionTypeEnumMap = {
   NoteStationPermissionType.owner: 'owner',
+  NoteStationPermissionType.ro: 'ro',
+  NoteStationPermissionType.rw: 'rw',
 };
 
 NoteStationNoteDataInfo _$NoteStationNoteDataInfoFromJson(

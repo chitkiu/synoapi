@@ -13,7 +13,9 @@ enum NoteStationColor {
 }
 
 enum NoteStationPermissionType {
-  owner
+  owner,
+  ro,
+  rw
 }
 
 @JsonSerializable()
