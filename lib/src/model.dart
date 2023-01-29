@@ -169,63 +169,65 @@ class DownloadStationStatisticGetInfo {
   Map<String, dynamic> toJson() => _$DownloadStationStatisticGetInfoToJson(this);
 }
 
+//TODO Maybe move to some generator???
 @JsonSerializable()
-class _DownloadStationTaskActionResponse {
+class DownloadStationTaskActionResponse {
   String? id;
   int? error;
 
-  _DownloadStationTaskActionResponse(this.id, this.error);
+  DownloadStationTaskActionResponse(this.id, this.error);
 
-  factory _DownloadStationTaskActionResponse.fromJson(Map<String, dynamic> json) =>
+  factory DownloadStationTaskActionResponse.fromJson(Map<String, dynamic> json) =>
       _$DownloadStationTaskActionResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$DownloadStationTaskActionResponseToJson(this);
 }
 
-class _DownloadStationMultiTaskActionResponse {
-  List<_DownloadStationTaskActionResponse> responses = [];
+//TODO Maybe move to some generator???
+class DownloadStationMultiTaskActionResponse {
+  List<DownloadStationTaskActionResponse> responses = [];
 
-  _DownloadStationMultiTaskActionResponse(this.responses);
+  DownloadStationMultiTaskActionResponse(this.responses);
 
-  factory _DownloadStationMultiTaskActionResponse.fromJson(List<dynamic>? json) {
+  factory DownloadStationMultiTaskActionResponse.fromJson(List<dynamic>? json) {
     if (json != null) {
-      return _DownloadStationMultiTaskActionResponse(json.map((el) {
-        return _DownloadStationTaskActionResponse.fromJson(el);
+      return DownloadStationMultiTaskActionResponse(json.map((el) {
+        return DownloadStationTaskActionResponse.fromJson(el);
       }).toList());
     }
-    return _DownloadStationMultiTaskActionResponse([]);
+    return DownloadStationMultiTaskActionResponse([]);
   }
 }
 
-class DownloadStationTaskDelete extends _DownloadStationMultiTaskActionResponse {
-  DownloadStationTaskDelete(_DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
+class DownloadStationTaskDelete extends DownloadStationMultiTaskActionResponse {
+  DownloadStationTaskDelete(DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
 
   factory DownloadStationTaskDelete.fromJson(List<dynamic> json) {
-    return DownloadStationTaskDelete(_DownloadStationMultiTaskActionResponse.fromJson(json));
+    return DownloadStationTaskDelete(DownloadStationMultiTaskActionResponse.fromJson(json));
   }
 }
 
-class DownloadStationTaskPause extends _DownloadStationMultiTaskActionResponse {
-  DownloadStationTaskPause(_DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
+class DownloadStationTaskPause extends DownloadStationMultiTaskActionResponse {
+  DownloadStationTaskPause(DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
 
   factory DownloadStationTaskPause.fromJson(List<dynamic> json) {
-    return DownloadStationTaskPause(_DownloadStationMultiTaskActionResponse.fromJson(json));
+    return DownloadStationTaskPause(DownloadStationMultiTaskActionResponse.fromJson(json));
   }
 }
 
-class DownloadStationTaskResume extends _DownloadStationMultiTaskActionResponse {
-  DownloadStationTaskResume(_DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
+class DownloadStationTaskResume extends DownloadStationMultiTaskActionResponse {
+  DownloadStationTaskResume(DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
 
   factory DownloadStationTaskResume.fromJson(List<dynamic> json) {
-    return DownloadStationTaskResume(_DownloadStationMultiTaskActionResponse.fromJson(json));
+    return DownloadStationTaskResume(DownloadStationMultiTaskActionResponse.fromJson(json));
   }
 }
 
-class DownloadStationTaskEdit extends _DownloadStationTaskActionResponse {
-  DownloadStationTaskEdit(_DownloadStationTaskActionResponse superObj) : super(superObj.id, superObj.error);
+class DownloadStationTaskEdit extends DownloadStationTaskActionResponse {
+  DownloadStationTaskEdit(DownloadStationTaskActionResponse superObj) : super(superObj.id, superObj.error);
 
   factory DownloadStationTaskEdit.fromJson(Map<String, dynamic> json) {
-    return DownloadStationTaskEdit(_DownloadStationTaskActionResponse.fromJson(json));
+    return DownloadStationTaskEdit(DownloadStationTaskActionResponse.fromJson(json));
   }
 }
 

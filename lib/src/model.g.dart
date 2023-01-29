@@ -101,15 +101,15 @@ Map<String, dynamic> _$DownloadStationStatisticGetInfoToJson(
       'emule_speed_upload': instance.emuleSpeedUpload,
     };
 
-_DownloadStationTaskActionResponse _$DownloadStationTaskActionResponseFromJson(
+DownloadStationTaskActionResponse _$DownloadStationTaskActionResponseFromJson(
         Map<String, dynamic> json) =>
-    _DownloadStationTaskActionResponse(
+    DownloadStationTaskActionResponse(
       json['id'] as String?,
       json['error'] as int?,
     );
 
 Map<String, dynamic> _$DownloadStationTaskActionResponseToJson(
-        _DownloadStationTaskActionResponse instance) =>
+        DownloadStationTaskActionResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'error': instance.error,
