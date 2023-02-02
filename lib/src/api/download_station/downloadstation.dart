@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
 
-import '../../synoapi.dart';
-import '../const.dart';
-import '../context.dart';
-import '../model.dart' as model;
+import '../../../synoapi.dart';
+import '../../const.dart';
+import '../../context.dart';
+import '../../model.dart' as model;
+import 'ds_model.dart' as ds_model;
 
 final l = Logger('DownloadStation');
 
@@ -68,10 +69,10 @@ class Info {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<model.DownloadStationInfoGetInfo>> getInfo({int? version}) {
+  Future<model.APIResponse<ds_model.DownloadStationInfoGetInfo>> getInfo({int? version}) {
     return getInfoRaw(version: version).then((resp) {
       return model.APIResponse.fromJson(
-          jsonDecode(resp.data!), (json) => model.DownloadStationInfoGetInfo.fromJson(json));
+          jsonDecode(resp.data!), (json) => ds_model.DownloadStationInfoGetInfo.fromJson(json));
     });
   }
 
@@ -86,10 +87,10 @@ class Info {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<model.DownloadStationInfoGetConfig>> getConfig({int? version}) {
+  Future<model.APIResponse<ds_model.DownloadStationInfoGetConfig>> getConfig({int? version}) {
     return getConfigRaw(version: version).then((resp) {
       return model.APIResponse.fromJson(
-          jsonDecode(resp.data!), (json) => model.DownloadStationInfoGetConfig.fromJson(json));
+          jsonDecode(resp.data!), (json) => ds_model.DownloadStationInfoGetConfig.fromJson(json));
     });
   }
 
@@ -183,14 +184,14 @@ class Task {
     return _cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<model.ListTaskInfo>> list(
+  Future<model.APIResponse<ds_model.ListTaskInfo>> list(
       {int? version,
       int offset = 0,
       int limit = -1,
       List<String> additional = const ['detail', 'transfer', 'file', 'tracker', 'peer']}) {
     return listRaw(version: version, offset: offset, limit: limit, additional: additional).then((resp) {
-      return model.APIResponse<model.ListTaskInfo>.fromJson(jsonDecode(resp.data!), (data) {
-        return model.ListTaskInfo.fromJson(data);
+      return model.APIResponse<ds_model.ListTaskInfo>.fromJson(jsonDecode(resp.data!), (data) {
+        return ds_model.ListTaskInfo.fromJson(data);
       });
     });
   }
@@ -211,13 +212,13 @@ class Task {
     return _cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<List<model.Task>>> getInfo(List<String> ids,
+  Future<model.APIResponse<List<ds_model.Task>>> getInfo(List<String> ids,
       {int? version, List<String> additional = const ['detail', 'transfer', 'file', 'tracker', 'peer']}) {
     return getInfoRaw(ids, version: version, additional: additional).then((resp) {
       return model.APIResponse.fromJson(jsonDecode(resp.data!), (json) {
         if (json.containsKey('tasks')) {
           List<dynamic> tasks = (json ?? {})['tasks'];
-          return tasks.map((e) => model.Task.fromJson(e)).toList();
+          return tasks.map((e) => ds_model.Task.fromJson(e)).toList();
         }
         return [];
       });
