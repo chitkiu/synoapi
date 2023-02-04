@@ -213,7 +213,7 @@ class NoteStationNoteInfo {
   String? thumb; //TODO idk type
 
   @JsonKey(name: "title")
-  String? title;
+  String title;
 
   @JsonKey(name: "ver")
   String version;
@@ -232,7 +232,7 @@ class NoteStationNoteInfo {
       this.perm,
       this.recycle,
       this.thumb,
-      this.title,
+      required this.title,
       required this.version
   });
 
