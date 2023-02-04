@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import '../../../synoapi.dart';
+import '../../api_response.dart';
 import 'query_model.dart';
 
 class QueryAPI {

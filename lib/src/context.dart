@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:logging/logging.dart';
 
-import 'api/auth.dart';
+import 'api/auth/auth.dart';
 import 'api/query/query.dart';
 import 'api/query/query_model.dart';
 

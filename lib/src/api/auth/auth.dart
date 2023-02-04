@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-import '../const.dart';
-import '../context.dart';
+import '../../const.dart';
+import '../../context.dart';
 
 class AuthAPIRaw {
   final endpoint = '/webapi/auth.cgi';

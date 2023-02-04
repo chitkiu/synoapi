@@ -3,9 +3,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+import '../../api_response.dart';
 import '../../const.dart';
 import './ns_models.dart' as ns_model;
-import '../../model.dart' as model;
 import '../../context.dart';
 
 class NoteStationAPI {
@@ -53,9 +53,9 @@ class Setting {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<ns_model.NoteStationSettings>> getSettingsInfo({int? version}) {
+  Future<APIResponse<ns_model.NoteStationSettings>> getSettingsInfo({int? version}) {
     return getSettingsInfoRaw(version: version).then((resp) {
-      return model.APIResponse.fromJson(
+      return APIResponse.fromJson(
           jsonDecode(resp.data!), (json) => ns_model.NoteStationSettings.fromJson(json));
     });
   }
@@ -79,9 +79,9 @@ class Info {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<ns_model.NoteStationInfo>> getInfo({int? version}) {
+  Future<APIResponse<ns_model.NoteStationInfo>> getInfo({int? version}) {
     return getInfoRaw(version: version).then((resp) {
-      return model.APIResponse.fromJson(
+      return APIResponse.fromJson(
           jsonDecode(resp.data!), (json) => ns_model.NoteStationInfo.fromJson(json));
     });
   }
@@ -105,9 +105,9 @@ class Notebook {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<ns_model.NoteStationNotebookList>> getNotebookList({int? version}) {
+  Future<APIResponse<ns_model.NoteStationNotebookList>> getNotebookList({int? version}) {
     return getNotebookListRaw(version: version).then((resp) {
-      return model.APIResponse.fromJson(
+      return APIResponse.fromJson(
           jsonDecode(resp.data!), (json) => ns_model.NoteStationNotebookList.fromJson(json));
     });
   }
@@ -207,9 +207,9 @@ class Note {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<ns_model.NoteStationNoteList>> getNoteList({int? version}) {
+  Future<APIResponse<ns_model.NoteStationNoteList>> getNoteList({int? version}) {
     return getNoteListRaw(version: version).then((resp) {
-      return model.APIResponse.fromJson(
+      return APIResponse.fromJson(
           jsonDecode(resp.data!), (json) => ns_model.NoteStationNoteList.fromJson(json));
     });
   }
@@ -230,9 +230,9 @@ class Note {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<ns_model.NoteStationNoteDataInfo>> getSpecificNoteInfo(String noteId, {int? version}) {
+  Future<APIResponse<ns_model.NoteStationNoteDataInfo>> getSpecificNoteInfo(String noteId, {int? version}) {
     return getSpecificNoteInfoRaw(noteId, version: version).then((resp) {
-      return model.APIResponse.fromJson(
+      return APIResponse.fromJson(
           jsonDecode(resp.data!), (json) => ns_model.NoteStationNoteDataInfo.fromJson(json));
     });
   }

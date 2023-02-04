@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import '../../../synoapi.dart';
-import '../../model.dart' as model;
+import '../../api_response.dart';
 
 class DownloadStation2API {
   final session = 'DownloadStation2';
@@ -77,7 +77,7 @@ class Task {
     }
   }
 
-  Future<model.APIResponse<void>> create(
+  Future<APIResponse<void>> create(
       {int? version,
         List<String>? uris,
         String? filePath,
@@ -95,7 +95,7 @@ class Task {
         unzipPasswd: unzipPasswd,
         destination: destination)
         .then((resp) {
-      return model.APIResponse.fromJson(jsonDecode(resp.data!), (json) {});
+      return APIResponse.fromJson(jsonDecode(resp.data!), (json) {});
     });
   }
 

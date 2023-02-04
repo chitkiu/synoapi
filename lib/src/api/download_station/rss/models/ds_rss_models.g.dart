@@ -1,42 +1,10 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'model.dart';
+part of 'ds_rss_models.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
-
-DownloadStationScheduleGetConfig _$DownloadStationScheduleGetConfigFromJson(
-        Map<String, dynamic> json) =>
-    DownloadStationScheduleGetConfig(
-      json['enabled'] as bool?,
-      json['emule_enabled'] as bool?,
-    );
-
-Map<String, dynamic> _$DownloadStationScheduleGetConfigToJson(
-        DownloadStationScheduleGetConfig instance) =>
-    <String, dynamic>{
-      'enabled': instance.enabled,
-      'emule_enabled': instance.emuleEnabled,
-    };
-
-DownloadStationStatisticGetInfo _$DownloadStationStatisticGetInfoFromJson(
-        Map<String, dynamic> json) =>
-    DownloadStationStatisticGetInfo(
-      json['speed_download'] as int?,
-      json['speed_upload'] as int?,
-      json['emule_speed_download'] as int?,
-      json['emule_speed_upload'] as int?,
-    );
-
-Map<String, dynamic> _$DownloadStationStatisticGetInfoToJson(
-        DownloadStationStatisticGetInfo instance) =>
-    <String, dynamic>{
-      'speed_download': instance.speedDownload,
-      'speed_upload': instance.speedUpload,
-      'emule_speed_download': instance.emuleSpeedDownload,
-      'emule_speed_upload': instance.emuleSpeedUpload,
-    };
 
 DownloadStationRSSSiteList _$DownloadStationRSSSiteListFromJson(
         Map<String, dynamic> json) =>

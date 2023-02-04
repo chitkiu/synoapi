@@ -478,7 +478,12 @@ class NoteStationAcl {
 
   factory NoteStationAcl.fromJson(Map<String, dynamic> json) => NoteStationAcl(
     enabled: json['enabled'] as bool?,
-    dsmGroup: json['dsm_group'] as Map<int?, NoteStationAclDSMGroup?>?,
+    dsmGroup: (json['dsm_group'] as Map<String?, dynamic>?)?.map((key, value) {
+      return MapEntry(
+          int.parse(key ?? '0'),
+          NoteStationAclDSMGroup.fromJson(value ?? {})
+      );
+    }),
   );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
