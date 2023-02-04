@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../synoapi.dart';
-import '../model.dart' as model;
+import '../../../synoapi.dart';
+import '../../model.dart' as model;
+import 'fs_models.dart' as fs_model;
 
 class FileStationAPI {
   final session = 'FileStation';
@@ -43,13 +44,13 @@ class List {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<model.FileStationSharedFolderList>> listSharedFolder(
+  Future<model.APIResponse<fs_model.FileStationSharedFolderList>> listSharedFolder(
       {int? version,
         int offset = 0}) {
     return listSharedFolderRaw(version: version, offset: offset).then((resp) {
       return model.APIResponse.fromJson(
           jsonDecode(resp.data!), (json) =>
-          model.FileStationSharedFolderList.fromJson(json));
+          fs_model.FileStationSharedFolderList.fromJson(json));
     });
   }
 
@@ -70,7 +71,7 @@ class List {
     return _parentApi._cntx.c.getUri(uri);
   }
 
-  Future<model.APIResponse<model.FileStationFolderFileList>> listFolderFile(
+  Future<model.APIResponse<fs_model.FileStationFolderFileList>> listFolderFile(
       String path,
       {int? version,
         int offset = 0}) {
@@ -78,7 +79,7 @@ class List {
         resp) {
       return model.APIResponse.fromJson(
           jsonDecode(resp.data!), (json) =>
-          model.FileStationFolderFileList.fromJson(json));
+          fs_model.FileStationFolderFileList.fromJson(json));
     });
   }
 }

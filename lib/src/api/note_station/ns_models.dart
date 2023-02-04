@@ -69,7 +69,7 @@ class NoteStationSettings {
   @JsonKey(name: "todo_show_badge")
   bool? todoShowBadge;
 
-  NoteStationSettings(
+  NoteStationSettings({
       this.copyDeleteOriginal,
       this.fontSize,
       this.inlineThumbnail,
@@ -85,7 +85,8 @@ class NoteStationSettings {
       this.todoReminderPredefined,
       this.todoReminderUnit,
       this.todoReminderValue,
-      this.todoShowBadge);
+      this.todoShowBadge
+  });
 
   factory NoteStationSettings.fromJson(Map<String, dynamic> json) => _$NoteStationSettingsFromJson(json);
 
@@ -103,22 +104,22 @@ class NoteStationInfo {
   String? hash;
 
   @JsonKey(name: "is_admin")
-  bool? isAdmin;
+  bool isAdmin;
 
   @JsonKey(name: "search_precisely")
   bool? searchPrecisely;
 
   @JsonKey(name: "uid")
-  int? uid;
+  int uid;
 
   @JsonKey(name: "username")
-  String? username;
+  String username;
 
   @JsonKey(name: "version")
-  NoteStationInfoVersion? version;
+  NoteStationInfoVersion version;
 
-  NoteStationInfo(this.allowShare, this.hash, this.isAdmin,
-      this.searchPrecisely, this.uid, this.username, this.version);
+  NoteStationInfo({this.allowShare, this.hash, required this.isAdmin,
+      this.searchPrecisely, required this.uid, required this.username, required this.version});
 
   factory NoteStationInfo.fromJson(Map<String, dynamic> json) => _$NoteStationInfoFromJson(json);
 
@@ -141,7 +142,7 @@ class NoteStationInfoVersion {
   @JsonKey(name: "minor")
   String? minor;
 
-  NoteStationInfoVersion(this.build, this.hotfix, this.major, this.minor);
+  NoteStationInfoVersion({this.build, this.hotfix, this.major, this.minor});
 
   factory NoteStationInfoVersion.fromJson(Map<String, dynamic> json) => _$NoteStationInfoVersionFromJson(json);
 
@@ -153,15 +154,15 @@ class NoteStationInfoVersion {
 class NoteStationNoteList {
 
   @JsonKey(name: "notes")
-  List<NoteStationNoteInfo>? notes;
+  List<NoteStationNoteInfo> notes;
 
   @JsonKey(name: "offset")
-  int? offset;
+  int offset;
 
   @JsonKey(name: "total")
-  int? total;
+  int total;
 
-  NoteStationNoteList(this.notes, this.offset, this.total);
+  NoteStationNoteList({required this.notes, required this.offset, required this.total});
 
   factory NoteStationNoteList.fromJson(Map<String, dynamic> json) => _$NoteStationNoteListFromJson(json);
 
@@ -194,10 +195,10 @@ class NoteStationNoteInfo {
   int? modifyTime;
 
   @JsonKey(name: "object_id")
-  String? id;
+  String id;
 
   @JsonKey(name: "owner")
-  NoteStationOwner? owner;
+  NoteStationOwner owner;
 
   @JsonKey(name: "parent_id")
   String? parentId;
@@ -215,9 +216,9 @@ class NoteStationNoteInfo {
   String? title;
 
   @JsonKey(name: "ver")
-  String? version;
+  String version;
 
-  NoteStationNoteInfo(
+  NoteStationNoteInfo({
       this.acl,
       this.archive,
       this.brief,
@@ -225,14 +226,15 @@ class NoteStationNoteInfo {
       this.creationTime,
       this.encrypt,
       this.modifyTime,
-      this.id,
-      this.owner,
+      required this.id,
+      required this.owner,
       this.parentId,
       this.perm,
       this.recycle,
       this.thumb,
       this.title,
-      this.version);
+      required this.version
+  });
 
   factory NoteStationNoteInfo.fromJson(Map<String, dynamic> json) => _$NoteStationNoteInfoFromJson(json);
 
@@ -291,7 +293,7 @@ class NoteStationNoteDataInfo {
   int? modifyTime;
 
   @JsonKey(name: "object_id")
-  String? id;
+  String id;
 
   @JsonKey(name: "old_parent_id")
   String? oldParentId;
@@ -318,13 +320,12 @@ class NoteStationNoteDataInfo {
   String? thumb; //TODO idk type
 
   @JsonKey(name: "title")
-  String? title;
+  String title;
 
   @JsonKey(name: "ver")
-  String? version;
+  String version;
 
-
-  NoteStationNoteDataInfo(
+  NoteStationNoteDataInfo({
       this.acl,
       this.archive,
       this.attachment,
@@ -341,7 +342,7 @@ class NoteStationNoteDataInfo {
       this.location,
       this.longitude,
       this.modifyTime,
-      this.id,
+      required this.id,
       this.oldParentId,
       this.owner,
       this.parentId,
@@ -350,8 +351,9 @@ class NoteStationNoteDataInfo {
       this.sourceUrl,
       this.tag,
       this.thumb,
-      this.title,
-      this.version);
+      required this.title,
+      required this.version
+  });
 
   factory NoteStationNoteDataInfo.fromJson(Map<String, dynamic> json) => _$NoteStationNoteDataInfoFromJson(json);
 
@@ -367,7 +369,7 @@ class NoteStationNoteCommitMessage {
   @JsonKey(name: "listable")
   bool? listable;
 
-  NoteStationNoteCommitMessage(this.device, this.listable);
+  NoteStationNoteCommitMessage({this.device, this.listable});
 
   factory NoteStationNoteCommitMessage.fromJson(Map<String, dynamic> json) => _$NoteStationNoteCommitMessageFromJson(json);
 
@@ -379,15 +381,15 @@ class NoteStationNoteCommitMessage {
 class NoteStationNotebookList {
 
   @JsonKey(name: "notebooks")
-  List<NoteStationNotebook>? notebooks;
+  List<NoteStationNotebook> notebooks;
 
   @JsonKey(name: "offset")
-  int? offset;
+  int offset;
 
   @JsonKey(name: "total")
-  int? total;
+  int total;
 
-  NoteStationNotebookList(this.notebooks, this.offset, this.total);
+  NoteStationNotebookList({required this.notebooks, required this.offset, required this.total});
 
   factory NoteStationNotebookList.fromJson(Map<String, dynamic> json) => _$NoteStationNotebookListFromJson(json);
 
@@ -423,7 +425,7 @@ class NoteStationNotebook {
   int? modifyTime;
 
   @JsonKey(name: "object_id")
-  String? id;
+  String id;
 
   @JsonKey(name: "owner")
   NoteStationOwner? owner;
@@ -438,12 +440,12 @@ class NoteStationNotebook {
   String? stack;
 
   @JsonKey(name: "title")
-  String? title;
+  String title;
 
   @JsonKey(name: "ver")
-  String? version;
+  String version;
 
-  NoteStationNotebook(
+  NoteStationNotebook({
       this.acl,
       this.archive,
       this.category,
@@ -452,36 +454,37 @@ class NoteStationNotebook {
       this.items,
       this.linkId,
       this.modifyTime,
-      this.id,
+      required this.id,
       this.owner,
       this.perm,
       this.preset,
       this.stack,
-      this.title,
-      this.version);
+      required this.title,
+      required this.version
+  });
 
   factory NoteStationNotebook.fromJson(Map<String, dynamic> json) => _$NoteStationNotebookFromJson(json);
 
   Map<String, dynamic> toJson() => _$NoteStationNotebookToJson(this);
 }
 
-@JsonSerializable()
 class NoteStationAcl {
 
-  @JsonKey(name: "enabled")
   bool? enabled;
 
-  @Deprecated("Use dsmGroup instead")
-  @JsonKey(name: "dsm_group")
-  dynamic private_dsmGroup;
+  Map<int?, NoteStationAclDSMGroup?>? dsmGroup;
 
-  Map<int?, NoteStationAclDSMGroup?>? get dsmGroup => private_dsmGroup;
+  NoteStationAcl({this.enabled, this.dsmGroup});
 
-  NoteStationAcl(this.enabled, this.private_dsmGroup);
+  factory NoteStationAcl.fromJson(Map<String, dynamic> json) => NoteStationAcl(
+    enabled: json['enabled'] as bool?,
+    dsmGroup: json['dsm_group'] as Map<int?, NoteStationAclDSMGroup?>?,
+  );
 
-  factory NoteStationAcl.fromJson(Map<String, dynamic> json) => _$NoteStationAclFromJson(json);
-
-  Map<String, dynamic> toJson() => _$NoteStationAclToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'enabled': enabled,
+    'dsm_group': dsmGroup,
+  };
 }
 
 @JsonSerializable()
@@ -491,9 +494,9 @@ class NoteStationAclDSMGroup {
   bool? inherit;
 
   @JsonKey(name: "perm")
-  String? permission; //TODO: "rw"
+  NoteStationPermissionType? permission;
 
-  NoteStationAclDSMGroup(this.inherit, this.permission);
+  NoteStationAclDSMGroup({this.inherit, this.permission});
 
   factory NoteStationAclDSMGroup.fromJson(Map<String, dynamic> json) => _$NoteStationAclDSMGroupFromJson(json);
 
@@ -507,9 +510,9 @@ class NoteStationOwner {
   String? displayName;
 
   @JsonKey(name: "uid")
-  int? uid;
+  int uid;
 
-  NoteStationOwner(this.displayName, this.uid);
+  NoteStationOwner({required this.uid, this.displayName});
 
   factory NoteStationOwner.fromJson(Map<String, dynamic> json) => _$NoteStationOwnerFromJson(json);
 

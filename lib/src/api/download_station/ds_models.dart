@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../util/util.dart';
 
-part 'ds_model.g.dart';
+part 'ds_models.g.dart';
 
 @JsonSerializable()
 class DownloadStationInfoGetInfo {
@@ -76,6 +76,10 @@ enum TaskStatus {
   error
 }
 
+enum TaskType {
+  bt
+}
+
 @JsonSerializable()
 class ListTaskInfo {
   int total = 0;
@@ -91,17 +95,17 @@ class ListTaskInfo {
 
 @JsonSerializable()
 class Task {
-  String? id;
-  String? type;
+  String id;
+  TaskType type;
   String? username;
   String? title;
   int? size;
-  TaskStatus? status;
+  TaskStatus status;
   @JsonKey(name: 'status_extra')
   StatusExtra? statusExtra;
   Additional? additional;
 
-  Task({this.id, this.type, this.username, this.title, this.size, this.status, this.statusExtra, this.additional});
+  Task({required this.id, required this.type, this.username, this.title, this.size, required this.status, this.statusExtra, this.additional});
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 
@@ -256,4 +260,19 @@ class TaskPeer {
   factory TaskPeer.fromJson(Map<String, dynamic> json) => _$TaskPeerFromJson(json);
 
   Map<String, dynamic> toJson() => _$TaskPeerToJson(this);
+}
+
+@JsonSerializable()
+class DownloadStationTaskActionResponse {
+  String? id;
+  int? error;
+
+  bool get isSuccess => error == null || error == 0;
+
+  DownloadStationTaskActionResponse(this.id, this.error);
+
+  factory DownloadStationTaskActionResponse.fromJson(Map<String, dynamic> json) =>
+      _$DownloadStationTaskActionResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DownloadStationTaskActionResponseToJson(this);
 }

@@ -33,20 +33,6 @@ class APIResponse<T> {
 }
 
 @JsonSerializable()
-class APIInfoQuery {
-  String? key;
-  String? path;
-  int? minVersion;
-  int? maxVersion;
-
-  APIInfoQuery(this.key, this.path, this.minVersion, this.maxVersion);
-
-  factory APIInfoQuery.fromJson(Map<String, dynamic> json) => _$APIInfoQueryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$APIInfoQueryToJson(this);
-}
-
-@JsonSerializable()
 class DownloadStationScheduleGetConfig {
   bool? enabled;
   @JsonKey(name: 'emule_enabled')
@@ -77,68 +63,6 @@ class DownloadStationStatisticGetInfo {
       _$DownloadStationStatisticGetInfoFromJson(json);
 
   Map<String, dynamic> toJson() => _$DownloadStationStatisticGetInfoToJson(this);
-}
-
-//TODO Maybe move to some generator???
-@JsonSerializable()
-class DownloadStationTaskActionResponse {
-  String? id;
-  int? error;
-
-  DownloadStationTaskActionResponse(this.id, this.error);
-
-  factory DownloadStationTaskActionResponse.fromJson(Map<String, dynamic> json) =>
-      _$DownloadStationTaskActionResponseFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DownloadStationTaskActionResponseToJson(this);
-}
-
-//TODO Maybe move to some generator???
-class DownloadStationMultiTaskActionResponse {
-  List<DownloadStationTaskActionResponse> responses = [];
-
-  DownloadStationMultiTaskActionResponse(this.responses);
-
-  factory DownloadStationMultiTaskActionResponse.fromJson(List<dynamic>? json) {
-    if (json != null) {
-      return DownloadStationMultiTaskActionResponse(json.map((el) {
-        return DownloadStationTaskActionResponse.fromJson(el);
-      }).toList());
-    }
-    return DownloadStationMultiTaskActionResponse([]);
-  }
-}
-
-class DownloadStationTaskDelete extends DownloadStationMultiTaskActionResponse {
-  DownloadStationTaskDelete(DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
-
-  factory DownloadStationTaskDelete.fromJson(List<dynamic> json) {
-    return DownloadStationTaskDelete(DownloadStationMultiTaskActionResponse.fromJson(json));
-  }
-}
-
-class DownloadStationTaskPause extends DownloadStationMultiTaskActionResponse {
-  DownloadStationTaskPause(DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
-
-  factory DownloadStationTaskPause.fromJson(List<dynamic> json) {
-    return DownloadStationTaskPause(DownloadStationMultiTaskActionResponse.fromJson(json));
-  }
-}
-
-class DownloadStationTaskResume extends DownloadStationMultiTaskActionResponse {
-  DownloadStationTaskResume(DownloadStationMultiTaskActionResponse superObj) : super(superObj.responses);
-
-  factory DownloadStationTaskResume.fromJson(List<dynamic> json) {
-    return DownloadStationTaskResume(DownloadStationMultiTaskActionResponse.fromJson(json));
-  }
-}
-
-class DownloadStationTaskEdit extends DownloadStationTaskActionResponse {
-  DownloadStationTaskEdit(DownloadStationTaskActionResponse superObj) : super(superObj.id, superObj.error);
-
-  factory DownloadStationTaskEdit.fromJson(Map<String, dynamic> json) {
-    return DownloadStationTaskEdit(DownloadStationTaskActionResponse.fromJson(json));
-  }
 }
 
 @JsonSerializable()
@@ -202,49 +126,4 @@ class Feed {
   factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);
 
   Map<String, dynamic> toJson() => _$FeedToJson(this);
-}
-
-@JsonSerializable()
-class FileStationSharedFolderList {
-  int total = 0;
-  int offset = 0;
-  List<Directory> shares = [];
-
-  FileStationSharedFolderList(this.total, this.offset, this.shares);
-
-  factory FileStationSharedFolderList.fromJson(Map<String, dynamic> json) => _$FileStationSharedFolderListFromJson(json);
-
-  Map<String, dynamic> toJson() => _$FileStationSharedFolderListToJson(this);
-}
-
-@JsonSerializable()
-class FileStationFolderFileList {
-  int total = 0;
-  int offset = 0;
-  List<Directory> files = [];
-
-  FileStationFolderFileList(this.total, this.offset, this.files);
-
-  factory FileStationFolderFileList.fromJson(Map<String, dynamic> json) => _$FileStationFolderFileListFromJson(json);
-
-  Map<String, dynamic> toJson() => _$FileStationFolderFileListToJson(this);
-}
-
-@JsonSerializable()
-class Directory {
-  @JsonKey(name: 'hybridshare_cache_status')
-  int? hybridshareCacheStatus;
-  @JsonKey(name: 'hybridshare_pin_status')
-  int? hybridsharePinStatus;
-  @JsonKey(name: 'isdir')
-  bool? isDir;
-  String? name;
-  String? path;
-
-  Directory(this.hybridshareCacheStatus, this.hybridsharePinStatus, this.isDir,
-      this.name, this.path);
-
-  factory Directory.fromJson(Map<String, dynamic> json) => _$DirectoryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$DirectoryToJson(this);
 }

@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../synoapi.dart';
-import '../const.dart';
-import '../context.dart';
-import '../model.dart';
+import '../../../synoapi.dart';
+import 'query_model.dart';
 
 class QueryAPI {
   final endpoint = '/webapi/query.cgi';

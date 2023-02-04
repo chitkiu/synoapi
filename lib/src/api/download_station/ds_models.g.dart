@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ds_model.dart';
+part of 'ds_models.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -70,12 +70,12 @@ Map<String, dynamic> _$ListTaskInfoToJson(ListTaskInfo instance) =>
     };
 
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(
-      id: json['id'] as String?,
-      type: json['type'] as String?,
+      id: json['id'] as String,
+      type: $enumDecode(_$TaskTypeEnumMap, json['type']),
       username: json['username'] as String?,
       title: json['title'] as String?,
       size: json['size'] as int?,
-      status: $enumDecodeNullable(_$TaskStatusEnumMap, json['status']),
+      status: $enumDecode(_$TaskStatusEnumMap, json['status']),
       statusExtra: json['status_extra'] == null
           ? null
           : StatusExtra.fromJson(json['status_extra'] as Map<String, dynamic>),
@@ -86,14 +86,18 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'id': instance.id,
-      'type': instance.type,
+      'type': _$TaskTypeEnumMap[instance.type]!,
       'username': instance.username,
       'title': instance.title,
       'size': instance.size,
-      'status': _$TaskStatusEnumMap[instance.status],
+      'status': _$TaskStatusEnumMap[instance.status]!,
       'status_extra': instance.statusExtra,
       'additional': instance.additional,
     };
+
+const _$TaskTypeEnumMap = {
+  TaskType.bt: 'bt',
+};
 
 const _$TaskStatusEnumMap = {
   TaskStatus.waiting: 'waiting',
@@ -252,4 +256,18 @@ Map<String, dynamic> _$TaskPeerToJson(TaskPeer instance) => <String, dynamic>{
       'progress': instance.progress,
       'speed_download': instance.speedDownload,
       'speed_upload': instance.speedUpload,
+    };
+
+DownloadStationTaskActionResponse _$DownloadStationTaskActionResponseFromJson(
+        Map<String, dynamic> json) =>
+    DownloadStationTaskActionResponse(
+      json['id'] as String?,
+      json['error'] as int?,
+    );
+
+Map<String, dynamic> _$DownloadStationTaskActionResponseToJson(
+        DownloadStationTaskActionResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'error': instance.error,
     };

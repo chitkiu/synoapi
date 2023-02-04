@@ -6,21 +6,6 @@ part of 'model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-APIInfoQuery _$APIInfoQueryFromJson(Map<String, dynamic> json) => APIInfoQuery(
-      json['key'] as String?,
-      json['path'] as String?,
-      json['minVersion'] as int?,
-      json['maxVersion'] as int?,
-    );
-
-Map<String, dynamic> _$APIInfoQueryToJson(APIInfoQuery instance) =>
-    <String, dynamic>{
-      'key': instance.key,
-      'path': instance.path,
-      'minVersion': instance.minVersion,
-      'maxVersion': instance.maxVersion,
-    };
-
 DownloadStationScheduleGetConfig _$DownloadStationScheduleGetConfigFromJson(
         Map<String, dynamic> json) =>
     DownloadStationScheduleGetConfig(
@@ -51,20 +36,6 @@ Map<String, dynamic> _$DownloadStationStatisticGetInfoToJson(
       'speed_upload': instance.speedUpload,
       'emule_speed_download': instance.emuleSpeedDownload,
       'emule_speed_upload': instance.emuleSpeedUpload,
-    };
-
-DownloadStationTaskActionResponse _$DownloadStationTaskActionResponseFromJson(
-        Map<String, dynamic> json) =>
-    DownloadStationTaskActionResponse(
-      json['id'] as String?,
-      json['error'] as int?,
-    );
-
-Map<String, dynamic> _$DownloadStationTaskActionResponseToJson(
-        DownloadStationTaskActionResponse instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'error': instance.error,
     };
 
 DownloadStationRSSSiteList _$DownloadStationRSSSiteListFromJson(
@@ -135,56 +106,4 @@ Map<String, dynamic> _$FeedToJson(Feed instance) => <String, dynamic>{
       'time': const DateTimeEpochConverter().toJson(instance.time),
       'download_uri': instance.downloadUri,
       'external_link': instance.externalLink,
-    };
-
-FileStationSharedFolderList _$FileStationSharedFolderListFromJson(
-        Map<String, dynamic> json) =>
-    FileStationSharedFolderList(
-      json['total'] as int,
-      json['offset'] as int,
-      (json['shares'] as List<dynamic>)
-          .map((e) => Directory.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$FileStationSharedFolderListToJson(
-        FileStationSharedFolderList instance) =>
-    <String, dynamic>{
-      'total': instance.total,
-      'offset': instance.offset,
-      'shares': instance.shares,
-    };
-
-FileStationFolderFileList _$FileStationFolderFileListFromJson(
-        Map<String, dynamic> json) =>
-    FileStationFolderFileList(
-      json['total'] as int,
-      json['offset'] as int,
-      (json['files'] as List<dynamic>)
-          .map((e) => Directory.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$FileStationFolderFileListToJson(
-        FileStationFolderFileList instance) =>
-    <String, dynamic>{
-      'total': instance.total,
-      'offset': instance.offset,
-      'files': instance.files,
-    };
-
-Directory _$DirectoryFromJson(Map<String, dynamic> json) => Directory(
-      json['hybridshare_cache_status'] as int?,
-      json['hybridshare_pin_status'] as int?,
-      json['isdir'] as bool?,
-      json['name'] as String?,
-      json['path'] as String?,
-    );
-
-Map<String, dynamic> _$DirectoryToJson(Directory instance) => <String, dynamic>{
-      'hybridshare_cache_status': instance.hybridshareCacheStatus,
-      'hybridshare_pin_status': instance.hybridsharePinStatus,
-      'isdir': instance.isDir,
-      'name': instance.name,
-      'path': instance.path,
     };

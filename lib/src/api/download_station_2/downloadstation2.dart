@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../synoapi.dart';
-import '../model.dart' as model;
+import '../../../synoapi.dart';
+import '../../model.dart' as model;
 
 class DownloadStation2API {
   final session = 'DownloadStation2';

@@ -8,22 +8,24 @@ part of 'ns_models.dart';
 
 NoteStationSettings _$NoteStationSettingsFromJson(Map<String, dynamic> json) =>
     NoteStationSettings(
-      json['copy_delete_orig'] as bool?,
-      json['font_size'] as String?,
-      json['inline_thumb'] as bool?,
-      $enumDecodeNullable(_$NoteStationColorEnumMap, json['pointer_color']),
-      json['search_attachment'] as bool?,
-      $enumDecodeNullable(_$NoteStationColorEnumMap, json['slide_theme']),
-      json['spell_check'] as bool?,
-      json['todo_due_date_day'] as String?,
-      json['todo_export_info'] as String?,
-      json['todo_priority'] as int?,
-      json['todo_purge'] as String?,
-      json['todo_reminder_offset'] as int?,
-      json['todo_reminder_predefined'] as String?,
-      json['todo_reminder_unit'] as String?,
-      json['todo_reminder_value'] as int?,
-      json['todo_show_badge'] as bool?,
+      copyDeleteOriginal: json['copy_delete_orig'] as bool?,
+      fontSize: json['font_size'] as String?,
+      inlineThumbnail: json['inline_thumb'] as bool?,
+      pointerColor:
+          $enumDecodeNullable(_$NoteStationColorEnumMap, json['pointer_color']),
+      searchAttachment: json['search_attachment'] as bool?,
+      slideTheme:
+          $enumDecodeNullable(_$NoteStationColorEnumMap, json['slide_theme']),
+      spellCheck: json['spell_check'] as bool?,
+      todoDueDateDay: json['todo_due_date_day'] as String?,
+      todoExportInfo: json['todo_export_info'] as String?,
+      todoPriority: json['todo_priority'] as int?,
+      todoPurge: json['todo_purge'] as String?,
+      todoReminderOffset: json['todo_reminder_offset'] as int?,
+      todoReminderPredefined: json['todo_reminder_predefined'] as String?,
+      todoReminderUnit: json['todo_reminder_unit'] as String?,
+      todoReminderValue: json['todo_reminder_value'] as int?,
+      todoShowBadge: json['todo_show_badge'] as bool?,
     );
 
 Map<String, dynamic> _$NoteStationSettingsToJson(
@@ -54,16 +56,14 @@ const _$NoteStationColorEnumMap = {
 
 NoteStationInfo _$NoteStationInfoFromJson(Map<String, dynamic> json) =>
     NoteStationInfo(
-      json['allow_share'] as bool?,
-      json['hash'] as String?,
-      json['is_admin'] as bool?,
-      json['search_precisely'] as bool?,
-      json['uid'] as int?,
-      json['username'] as String?,
-      json['version'] == null
-          ? null
-          : NoteStationInfoVersion.fromJson(
-              json['version'] as Map<String, dynamic>),
+      allowShare: json['allow_share'] as bool?,
+      hash: json['hash'] as String?,
+      isAdmin: json['is_admin'] as bool,
+      searchPrecisely: json['search_precisely'] as bool?,
+      uid: json['uid'] as int,
+      username: json['username'] as String,
+      version: NoteStationInfoVersion.fromJson(
+          json['version'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$NoteStationInfoToJson(NoteStationInfo instance) =>
@@ -80,10 +80,10 @@ Map<String, dynamic> _$NoteStationInfoToJson(NoteStationInfo instance) =>
 NoteStationInfoVersion _$NoteStationInfoVersionFromJson(
         Map<String, dynamic> json) =>
     NoteStationInfoVersion(
-      json['build'] as String?,
-      json['hotfix'] as String?,
-      json['major'] as String?,
-      json['minor'] as String?,
+      build: json['build'] as String?,
+      hotfix: json['hotfix'] as String?,
+      major: json['major'] as String?,
+      minor: json['minor'] as String?,
     );
 
 Map<String, dynamic> _$NoteStationInfoVersionToJson(
@@ -97,11 +97,11 @@ Map<String, dynamic> _$NoteStationInfoVersionToJson(
 
 NoteStationNoteList _$NoteStationNoteListFromJson(Map<String, dynamic> json) =>
     NoteStationNoteList(
-      (json['notes'] as List<dynamic>?)
-          ?.map((e) => NoteStationNoteInfo.fromJson(e as Map<String, dynamic>))
+      notes: (json['notes'] as List<dynamic>)
+          .map((e) => NoteStationNoteInfo.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['offset'] as int?,
-      json['total'] as int?,
+      offset: json['offset'] as int,
+      total: json['total'] as int,
     );
 
 Map<String, dynamic> _$NoteStationNoteListToJson(
@@ -114,25 +114,25 @@ Map<String, dynamic> _$NoteStationNoteListToJson(
 
 NoteStationNoteInfo _$NoteStationNoteInfoFromJson(Map<String, dynamic> json) =>
     NoteStationNoteInfo(
-      json['acl'] == null
+      acl: json['acl'] == null
           ? null
           : NoteStationAcl.fromJson(json['acl'] as Map<String, dynamic>),
-      json['archive'] as bool?,
-      json['brief'] as String?,
-      $enumDecodeNullable(_$NoteStationCategoryEnumMap, json['category']),
-      json['ctime'] as int?,
-      json['encrypt'] as bool?,
-      json['mtime'] as int?,
-      json['object_id'] as String?,
-      json['owner'] == null
-          ? null
-          : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
-      json['parent_id'] as String?,
-      $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
-      json['recycle'] as bool?,
-      json['thumb'] as String?,
-      json['title'] as String?,
-      json['ver'] as String?,
+      archive: json['archive'] as bool?,
+      brief: json['brief'] as String?,
+      category:
+          $enumDecodeNullable(_$NoteStationCategoryEnumMap, json['category']),
+      creationTime: json['ctime'] as int?,
+      encrypt: json['encrypt'] as bool?,
+      modifyTime: json['mtime'] as int?,
+      id: json['object_id'] as String,
+      owner: NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
+      parentId: json['parent_id'] as String?,
+      perm:
+          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      recycle: json['recycle'] as bool?,
+      thumb: json['thumb'] as String?,
+      title: json['title'] as String?,
+      version: json['ver'] as String,
     );
 
 Map<String, dynamic> _$NoteStationNoteInfoToJson(
@@ -169,40 +169,41 @@ const _$NoteStationPermissionTypeEnumMap = {
 NoteStationNoteDataInfo _$NoteStationNoteDataInfoFromJson(
         Map<String, dynamic> json) =>
     NoteStationNoteDataInfo(
-      json['acl'] == null
+      acl: json['acl'] == null
           ? null
           : NoteStationAcl.fromJson(json['acl'] as Map<String, dynamic>),
-      json['archive'] as bool?,
-      json['attachment'] as String?,
-      json['brief'] as String?,
-      json['category'] as String?,
-      json['commit_msg'] == null
+      archive: json['archive'] as bool?,
+      attachment: json['attachment'] as String?,
+      brief: json['brief'] as String?,
+      category: json['category'] as String?,
+      commitMessage: json['commit_msg'] == null
           ? null
           : NoteStationNoteCommitMessage.fromJson(
               json['commit_msg'] as Map<String, dynamic>),
-      json['content'] as String?,
-      json['ctime'] as int?,
-      json['encrypt'] as bool?,
-      json['individual_joined'] as bool?,
-      json['individual_shared'] as bool?,
-      (json['latitude'] as num?)?.toDouble(),
-      json['link_id'] as String?,
-      json['location'] as String?,
-      (json['longitude'] as num?)?.toDouble(),
-      json['mtime'] as int?,
-      json['object_id'] as String?,
-      json['old_parent_id'] as String?,
-      json['owner'] == null
+      content: json['content'] as String?,
+      creationTime: json['ctime'] as int?,
+      encrypt: json['encrypt'] as bool?,
+      individualJoined: json['individual_joined'] as bool?,
+      individualShared: json['individual_shared'] as bool?,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      linkId: json['link_id'] as String?,
+      location: json['location'] as String?,
+      longitude: (json['longitude'] as num?)?.toDouble(),
+      modifyTime: json['mtime'] as int?,
+      id: json['object_id'] as String,
+      oldParentId: json['old_parent_id'] as String?,
+      owner: json['owner'] == null
           ? null
           : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
-      json['parent_id'] as String?,
-      $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
-      json['recycle'] as bool?,
-      json['source_url'] as String?,
-      (json['tag'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      json['thumb'] as String?,
-      json['title'] as String?,
-      json['ver'] as String?,
+      parentId: json['parent_id'] as String?,
+      perm:
+          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      recycle: json['recycle'] as bool?,
+      sourceUrl: json['source_url'] as String?,
+      tag: (json['tag'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      thumb: json['thumb'] as String?,
+      title: json['title'] as String,
+      version: json['ver'] as String,
     );
 
 Map<String, dynamic> _$NoteStationNoteDataInfoToJson(
@@ -240,8 +241,8 @@ Map<String, dynamic> _$NoteStationNoteDataInfoToJson(
 NoteStationNoteCommitMessage _$NoteStationNoteCommitMessageFromJson(
         Map<String, dynamic> json) =>
     NoteStationNoteCommitMessage(
-      json['device'] as String?,
-      json['listable'] as bool?,
+      device: json['device'] as String?,
+      listable: json['listable'] as bool?,
     );
 
 Map<String, dynamic> _$NoteStationNoteCommitMessageToJson(
@@ -254,11 +255,11 @@ Map<String, dynamic> _$NoteStationNoteCommitMessageToJson(
 NoteStationNotebookList _$NoteStationNotebookListFromJson(
         Map<String, dynamic> json) =>
     NoteStationNotebookList(
-      (json['notebooks'] as List<dynamic>?)
-          ?.map((e) => NoteStationNotebook.fromJson(e as Map<String, dynamic>))
+      notebooks: (json['notebooks'] as List<dynamic>)
+          .map((e) => NoteStationNotebook.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['offset'] as int?,
-      json['total'] as int?,
+      offset: json['offset'] as int,
+      total: json['total'] as int,
     );
 
 Map<String, dynamic> _$NoteStationNotebookListToJson(
@@ -271,25 +272,27 @@ Map<String, dynamic> _$NoteStationNotebookListToJson(
 
 NoteStationNotebook _$NoteStationNotebookFromJson(Map<String, dynamic> json) =>
     NoteStationNotebook(
-      json['acl'] == null
+      acl: json['acl'] == null
           ? null
           : NoteStationAcl.fromJson(json['acl'] as Map<String, dynamic>),
-      json['archive'] as bool?,
-      json['category'] as String?,
-      json['ctime'] as int?,
-      json['individual_shared'] as bool?,
-      (json['items'] as List<dynamic>?)?.map((e) => e as String?).toList(),
-      json['link_id'] as String?,
-      json['mtime'] as int?,
-      json['object_id'] as String?,
-      json['owner'] == null
+      archive: json['archive'] as bool?,
+      category: json['category'] as String?,
+      creationTime: json['ctime'] as int?,
+      individualShared: json['individual_shared'] as bool?,
+      items:
+          (json['items'] as List<dynamic>?)?.map((e) => e as String?).toList(),
+      linkId: json['link_id'] as String?,
+      modifyTime: json['mtime'] as int?,
+      id: json['object_id'] as String,
+      owner: json['owner'] == null
           ? null
           : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
-      $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
-      json['preset'] as bool?,
-      json['stack'] as String?,
-      json['title'] as String?,
-      json['ver'] as String?,
+      perm:
+          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      preset: json['preset'] as bool?,
+      stack: json['stack'] as String?,
+      title: json['title'] as String,
+      version: json['ver'] as String,
     );
 
 Map<String, dynamic> _$NoteStationNotebookToJson(
@@ -312,36 +315,25 @@ Map<String, dynamic> _$NoteStationNotebookToJson(
       'ver': instance.version,
     };
 
-NoteStationAcl _$NoteStationAclFromJson(Map<String, dynamic> json) =>
-    NoteStationAcl(
-      json['enabled'] as bool?,
-      json['dsm_group'],
-    );
-
-Map<String, dynamic> _$NoteStationAclToJson(NoteStationAcl instance) =>
-    <String, dynamic>{
-      'enabled': instance.enabled,
-      'dsm_group': instance.private_dsmGroup,
-    };
-
 NoteStationAclDSMGroup _$NoteStationAclDSMGroupFromJson(
         Map<String, dynamic> json) =>
     NoteStationAclDSMGroup(
-      json['inherit'] as bool?,
-      json['perm'] as String?,
+      inherit: json['inherit'] as bool?,
+      permission:
+          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
     );
 
 Map<String, dynamic> _$NoteStationAclDSMGroupToJson(
         NoteStationAclDSMGroup instance) =>
     <String, dynamic>{
       'inherit': instance.inherit,
-      'perm': instance.permission,
+      'perm': _$NoteStationPermissionTypeEnumMap[instance.permission],
     };
 
 NoteStationOwner _$NoteStationOwnerFromJson(Map<String, dynamic> json) =>
     NoteStationOwner(
-      json['display_name'] as String?,
-      json['uid'] as int?,
+      uid: json['uid'] as int,
+      displayName: json['display_name'] as String?,
     );
 
 Map<String, dynamic> _$NoteStationOwnerToJson(NoteStationOwner instance) =>

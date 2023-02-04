@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/adapter.dart';
@@ -8,8 +7,8 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:logging/logging.dart';
 
 import 'api/auth.dart';
-import 'api/query.dart';
-import 'model.dart';
+import 'api/query/query.dart';
+import 'api/query/query_model.dart';
 
 typedef AsyncStringCallback = Future<String> Function();
 
@@ -24,14 +23,13 @@ class LoggingInterceptor extends InterceptorsWrapper {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    final data = response.data.toString();
-    l.finest('< ${response.statusCode} ${data.substring(0, min(data.length, 256))}');
+    l.finest('< ${response.statusCode} ${response.data}');
     handler.next(response);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    l.warning('ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+    l.warning('ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}', [err.error, err.stackTrace]);
     handler.next(err);
   }
 }
