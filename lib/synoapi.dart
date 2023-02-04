@@ -20,5 +20,6 @@ export 'src/api/query/query.dart' hide Info;
 
 export 'src/const.dart';
 export 'src/context.dart';
+export 'src/api_response.dart';
 
 export 'package:cookie_jar/cookie_jar.dart' show PersistCookieJar, CookieJar, Storage;
