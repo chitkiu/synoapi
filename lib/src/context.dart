@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:cookie_jar/cookie_jar.dart';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:logging/logging.dart';
 
@@ -72,7 +72,7 @@ class APIContext {
   }
 
   void _setupProxy(String proxy) {
-    (_client.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (httpClient) {
+    (_client.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (httpClient) {
       httpClient.findProxy = (uri) => proxy;
     };
   }
