@@ -16,13 +16,13 @@ class NoteStationSettings {
   @JsonKey(name: "inline_thumb")
   bool? inlineThumbnail;
 
-  @JsonKey(name: "pointer_color")
+  @JsonKey(name: "pointer_color", unknownEnumValue: NoteStationColor.other)
   NoteStationColor? pointerColor;
 
   @JsonKey(name: "search_attachment")
   bool? searchAttachment;
 
-  @JsonKey(name: "slide_theme")
+  @JsonKey(name: "slide_theme", unknownEnumValue: NoteStationColor.other)
   NoteStationColor? slideTheme;
 
   @JsonKey(name: "spell_check")

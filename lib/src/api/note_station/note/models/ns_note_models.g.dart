@@ -30,16 +30,18 @@ NoteStationNoteInfo _$NoteStationNoteInfoFromJson(Map<String, dynamic> json) =>
           : NoteStationAcl.fromJson(json['acl'] as Map<String, dynamic>),
       archive: json['archive'] as bool?,
       brief: json['brief'] as String?,
-      category:
-          $enumDecodeNullable(_$NoteStationCategoryEnumMap, json['category']),
+      category: $enumDecodeNullable(
+          _$NoteStationCategoryEnumMap, json['category'],
+          unknownValue: NoteStationCategory.other),
       creationTime: json['ctime'] as int?,
       encrypt: json['encrypt'] as bool?,
       modifyTime: json['mtime'] as int?,
       id: json['object_id'] as String,
       owner: NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
       parentId: json['parent_id'] as String?,
-      perm:
-          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      perm: $enumDecodeNullable(
+          _$NoteStationPermissionTypeEnumMap, json['perm'],
+          unknownValue: NoteStationPermissionType.other),
       recycle: json['recycle'] as bool?,
       thumb: json['thumb'] as String?,
       title: json['title'] as String,
@@ -69,12 +71,14 @@ Map<String, dynamic> _$NoteStationNoteInfoToJson(
 const _$NoteStationCategoryEnumMap = {
   NoteStationCategory.notebook: 'notebook',
   NoteStationCategory.note: 'note',
+  NoteStationCategory.other: 'other',
 };
 
 const _$NoteStationPermissionTypeEnumMap = {
   NoteStationPermissionType.owner: 'owner',
   NoteStationPermissionType.ro: 'ro',
   NoteStationPermissionType.rw: 'rw',
+  NoteStationPermissionType.other: 'other',
 };
 
 NoteStationNoteDataInfo _$NoteStationNoteDataInfoFromJson(
@@ -107,8 +111,9 @@ NoteStationNoteDataInfo _$NoteStationNoteDataInfoFromJson(
           ? null
           : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
       parentId: json['parent_id'] as String?,
-      perm:
-          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      perm: $enumDecodeNullable(
+          _$NoteStationPermissionTypeEnumMap, json['perm'],
+          unknownValue: NoteStationPermissionType.other),
       recycle: json['recycle'] as bool?,
       sourceUrl: json['source_url'] as String?,
       tag: (json['tag'] as List<dynamic>?)?.map((e) => e as String).toList(),

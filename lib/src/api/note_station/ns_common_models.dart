@@ -4,13 +4,15 @@ part 'ns_common_models.g.dart';
 
 enum NoteStationColor {
   blue,
-  white
+  white,
+  other
 }
 
 enum NoteStationPermissionType {
   owner,
   ro,
-  rw
+  rw,
+  other,
 }
 
 class NoteStationAcl {
@@ -43,7 +45,7 @@ class NoteStationAclDSMGroup {
   @JsonKey(name: "inherit")
   bool? inherit;
 
-  @JsonKey(name: "perm")
+  @JsonKey(name: "perm", unknownEnumValue: NoteStationPermissionType.other)
   NoteStationPermissionType? permission;
 
   NoteStationAclDSMGroup({this.inherit, this.permission});

@@ -24,11 +24,13 @@ Map<String, dynamic> _$ListTaskInfoToJson(ListTaskInfo instance) =>
 DownloadStationTask _$DownloadStationTaskFromJson(Map<String, dynamic> json) =>
     DownloadStationTask(
       id: json['id'] as String,
-      type: $enumDecode(_$TaskTypeEnumMap, json['type']),
+      type: $enumDecode(_$TaskTypeEnumMap, json['type'],
+          unknownValue: TaskType.other),
       username: json['username'] as String?,
       title: json['title'] as String?,
       size: json['size'] as int?,
-      status: $enumDecode(_$TaskStatusEnumMap, json['status']),
+      status: $enumDecode(_$TaskStatusEnumMap, json['status'],
+          unknownValue: TaskStatus.other),
       statusExtra: json['status_extra'] == null
           ? null
           : StatusExtra.fromJson(json['status_extra'] as Map<String, dynamic>),
@@ -52,6 +54,9 @@ Map<String, dynamic> _$DownloadStationTaskToJson(
 
 const _$TaskTypeEnumMap = {
   TaskType.bt: 'bt',
+  TaskType.http: 'http',
+  TaskType.https: 'https',
+  TaskType.other: 'other',
 };
 
 const _$TaskStatusEnumMap = {
@@ -65,6 +70,7 @@ const _$TaskStatusEnumMap = {
   TaskStatus.filehosting_waiting: 'filehosting_waiting',
   TaskStatus.extracting: 'extracting',
   TaskStatus.error: 'error',
+  TaskStatus.other: 'other',
 };
 
 Additional _$AdditionalFromJson(Map<String, dynamic> json) => Additional(

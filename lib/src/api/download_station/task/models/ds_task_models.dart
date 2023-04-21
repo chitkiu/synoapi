@@ -14,11 +14,15 @@ enum TaskStatus {
   seeding,
   filehosting_waiting,
   extracting,
-  error
+  error,
+  other,
 }
 
 enum TaskType {
-  bt
+  bt,
+  http,
+  https,
+  other
 }
 
 @JsonSerializable()
@@ -37,10 +41,12 @@ class ListTaskInfo {
 @JsonSerializable()
 class DownloadStationTask {
   String id;
+  @JsonKey(name: 'type', unknownEnumValue: TaskType.other)
   TaskType type;
   String? username;
   String? title;
   int? size;
+  @JsonKey(name: 'status', unknownEnumValue: TaskStatus.other)
   TaskStatus status;
   @JsonKey(name: 'status_extra')
   StatusExtra? statusExtra;

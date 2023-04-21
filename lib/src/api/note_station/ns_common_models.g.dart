@@ -10,8 +10,9 @@ NoteStationAclDSMGroup _$NoteStationAclDSMGroupFromJson(
         Map<String, dynamic> json) =>
     NoteStationAclDSMGroup(
       inherit: json['inherit'] as bool?,
-      permission:
-          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      permission: $enumDecodeNullable(
+          _$NoteStationPermissionTypeEnumMap, json['perm'],
+          unknownValue: NoteStationPermissionType.other),
     );
 
 Map<String, dynamic> _$NoteStationAclDSMGroupToJson(
@@ -25,6 +26,7 @@ const _$NoteStationPermissionTypeEnumMap = {
   NoteStationPermissionType.owner: 'owner',
   NoteStationPermissionType.ro: 'ro',
   NoteStationPermissionType.rw: 'rw',
+  NoteStationPermissionType.other: 'other',
 };
 
 NoteStationOwner _$NoteStationOwnerFromJson(Map<String, dynamic> json) =>

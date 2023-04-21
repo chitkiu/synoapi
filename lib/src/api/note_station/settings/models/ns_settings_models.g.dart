@@ -11,11 +11,13 @@ NoteStationSettings _$NoteStationSettingsFromJson(Map<String, dynamic> json) =>
       copyDeleteOriginal: json['copy_delete_orig'] as bool?,
       fontSize: json['font_size'] as String?,
       inlineThumbnail: json['inline_thumb'] as bool?,
-      pointerColor:
-          $enumDecodeNullable(_$NoteStationColorEnumMap, json['pointer_color']),
+      pointerColor: $enumDecodeNullable(
+          _$NoteStationColorEnumMap, json['pointer_color'],
+          unknownValue: NoteStationColor.other),
       searchAttachment: json['search_attachment'] as bool?,
-      slideTheme:
-          $enumDecodeNullable(_$NoteStationColorEnumMap, json['slide_theme']),
+      slideTheme: $enumDecodeNullable(
+          _$NoteStationColorEnumMap, json['slide_theme'],
+          unknownValue: NoteStationColor.other),
       spellCheck: json['spell_check'] as bool?,
       todoDueDateDay: json['todo_due_date_day'] as String?,
       todoExportInfo: json['todo_export_info'] as String?,
@@ -52,4 +54,5 @@ Map<String, dynamic> _$NoteStationSettingsToJson(
 const _$NoteStationColorEnumMap = {
   NoteStationColor.blue: 'blue',
   NoteStationColor.white: 'white',
+  NoteStationColor.other: 'other',
 };

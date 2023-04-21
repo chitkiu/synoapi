@@ -6,7 +6,8 @@ part 'ns_note_models.g.dart';
 
 enum NoteStationCategory {
   notebook,
-  note
+  note,
+  other
 }
 
 @JsonSerializable()
@@ -41,7 +42,7 @@ class NoteStationNoteInfo {
   @JsonKey(name: "brief")
   String? brief;
 
-  @JsonKey(name: "category")
+  @JsonKey(name: "category", unknownEnumValue: NoteStationCategory.other)
   NoteStationCategory? category;
 
   @JsonKey(name: "ctime")
@@ -62,7 +63,7 @@ class NoteStationNoteInfo {
   @JsonKey(name: "parent_id")
   String? parentId;
 
-  @JsonKey(name: "perm")
+  @JsonKey(name: "perm", unknownEnumValue: NoteStationPermissionType.other)
   NoteStationPermissionType? perm;
 
   @JsonKey(name: "recycle")
@@ -163,7 +164,7 @@ class NoteStationNoteDataInfo {
   @JsonKey(name: "parent_id")
   String? parentId;
 
-  @JsonKey(name: "perm")
+  @JsonKey(name: "perm", unknownEnumValue: NoteStationPermissionType.other)
   NoteStationPermissionType? perm;
 
   @JsonKey(name: "recycle")

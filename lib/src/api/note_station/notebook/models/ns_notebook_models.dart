@@ -57,7 +57,7 @@ class NoteStationNotebook {
   @JsonKey(name: "owner")
   NoteStationOwner? owner;
 
-  @JsonKey(name: "perm")
+  @JsonKey(name: "perm", unknownEnumValue: NoteStationPermissionType.other)
   NoteStationPermissionType? perm;
 
   @JsonKey(name: "preset")

@@ -41,8 +41,9 @@ NoteStationNotebook _$NoteStationNotebookFromJson(Map<String, dynamic> json) =>
       owner: json['owner'] == null
           ? null
           : NoteStationOwner.fromJson(json['owner'] as Map<String, dynamic>),
-      perm:
-          $enumDecodeNullable(_$NoteStationPermissionTypeEnumMap, json['perm']),
+      perm: $enumDecodeNullable(
+          _$NoteStationPermissionTypeEnumMap, json['perm'],
+          unknownValue: NoteStationPermissionType.other),
       preset: json['preset'] as bool?,
       stack: json['stack'] as String?,
       title: json['title'] as String,
@@ -73,4 +74,5 @@ const _$NoteStationPermissionTypeEnumMap = {
   NoteStationPermissionType.owner: 'owner',
   NoteStationPermissionType.ro: 'ro',
   NoteStationPermissionType.rw: 'rw',
+  NoteStationPermissionType.other: 'other',
 };
